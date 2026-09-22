@@ -26,6 +26,10 @@ async function validateRegister(req, resp, next) {
 async function validateLogin(req, resp, next) {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+        return resp.status(401).json({ error: "Os campos email e senha são obrigatórios."});
+    }
+
     const user = await UserModel.findOneByEmail(email);
 
     const isPasswordValid = user
