@@ -10,7 +10,7 @@ function auth(req, resp, next) {
     const token = header.split(" ")[1];
 
     try {
-        const authorization = jwt.verify(token, process.env.JWT_SECRET);
+        const authorization = jwt.verify(token, process.env.jwt_secret);
         req.auth = authorization;
         next();
     }
