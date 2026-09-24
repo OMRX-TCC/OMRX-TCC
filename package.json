@@ -17,9 +17,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "postinstall": "node scripts/setup.js"
+    "postinstall": "node src/scripts/setup.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.1",
     "express": "^5.2.1",
     "mysql2": "^3.24.4"
