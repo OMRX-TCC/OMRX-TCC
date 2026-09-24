@@ -10,8 +10,8 @@ function auth(req, resp, next) {
     const token = header.split(" ")[1];
 
     try {
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload;
+        const authorization = jwt.verify(token, process.env.JWT_SECRET);
+        req.auth = authorization;
         next();
     }
     catch(error) {
