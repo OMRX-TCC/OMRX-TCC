@@ -18,4 +18,13 @@ async function findByEmail(email) {
     return rows[0];
 }
 
-module.exports = {create, findByEmail}
+async function findOneByEmail(email) {
+    const [rows] = await pool.execute(
+        "SELECT * FROM users where user_email = ?",
+        [email]
+    );
+
+    return rows[0];
+}
+
+module.exports = {create, findByEmail, findOneByEmail}
