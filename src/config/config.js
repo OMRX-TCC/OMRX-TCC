@@ -11,7 +11,9 @@ module.exports = {
     INITIAL_DELAY_MS: 500,
   },
   URL_CHECK_PROVIDER: {
-    BASE_URL: "https://www.ipqualityscore.com/api/json/url",
+    BASE_URL: "https://api.cloudflare.com/client/v4",
     TIMEOUT_MS: 5000,
+    POLL_INTERVAL_MS: 10000,
+    MAX_POLL_ATTEMPTS: 6,
   },
 };
