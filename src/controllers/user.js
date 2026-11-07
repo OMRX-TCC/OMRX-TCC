@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userModel  = require("../models/user");
+const emailVerificationService = require("../services/emailVerificationService");
+const { EMAIL_VERIFICATION_MESSAGES } = require("../config/config");
 
 async function create(req, resp) {
     const name = req.body.name.trim();
@@ -15,7 +17,16 @@ async function create(req, resp) {
 
     const id = await userModel.create({ name, email, passwordHash});
 
-    return resp.status(201).json({ id, name, email })
+    let emailSent = true;
+
+    try {
+        await emailVerificationService.sendVerificationEmail({ id, name, email });
+    } catch (error) {
+        console.error("Falha ao enviar e-mail de verificacao:", error.message);
+        emailSent = false;
+    }
+
+    return resp.status(201).json({ id, name, email, emailSent })
 }
 
 async function login(req, resp) {
@@ -31,4 +42,32 @@ async function login(req, resp) {
     return resp.status(200).json({ token });
 }
 
-module.exports = { create, login }
+async function verifyEmail(req, resp) {
+    try {
+        await emailVerificationService.verifyEmail(req.body.token);
+        return resp.status(200).json({ message: EMAIL_VERIFICATION_MESSAGES.VERIFIED });
+    } catch (error) {
+        if (error instanceof emailVerificationService.EmailVerificationError) {
+            return resp.status(400).json({
+                error: EMAIL_VERIFICATION_MESSAGES[error.code],
+                code: error.code,
+            });
+        }
+        throw error;
+    }
+}
+
+async function resendVerification(req, resp) {
+    const email = req.body.email.trim().toLowerCase();
+
+    try {
+        await emailVerificationService.resendVerificationEmail(email);
+    } catch (error) {
+        console.error("Falha ao reenviar e-mail de verificacao:", error.message);
+        return resp.status(502).json({ error: EMAIL_VERIFICATION_MESSAGES.SEND_FAILED });
+    }
+
+    return resp.status(200).json({ message: EMAIL_VERIFICATION_MESSAGES.RESEND_ACCEPTED });
+}
+
+module.exports = { create, login, verifyEmail, resendVerification }

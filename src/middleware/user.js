@@ -1,5 +1,6 @@
 const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
+const { EMAIL_VERIFICATION_MESSAGES } = require("../config/config");
 
 async function validateRegister(req, resp, next) {
     const { name, email, password, repeatPassword } = req.body;
@@ -40,10 +41,27 @@ async function validateLogin(req, resp, next) {
         return resp.status(401).json({ error: "Email ou senha inválidos" });
     }
 
+    if (!user.user_email_verified_at) {
+        return resp.status(403).json({
+            error: EMAIL_VERIFICATION_MESSAGES.NOT_VERIFIED,
+            code: "EMAIL_NOT_VERIFIED",
+        });
+    }
+
     req.id = user.user_id;
     req.email = user.user_email;
 
     next();
 }
 
-module.exports = { validateRegister, validateLogin };
+function validateResendVerification(req, resp, next) {
+    const { email } = req.body;
+
+    if (typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email.trim())) {
+        return resp.status(400).json({ error: "Email inválido." });
+    }
+
+    next();
+}
+
+module.exports = { validateRegister, validateLogin, validateResendVerification };
