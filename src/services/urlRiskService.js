@@ -1,40 +1,53 @@
-const {checkUrlWithProvider,WebRiskError,} = require("../providers/urlCheckProvider");
-const { executeWithRetry } = require("../utils/retry");
+const { submitScan, getScanResult, UrlScanError } = require("../providers/urlCheckProvider");
+const { VerificationResult } = require("../entities/VerificationResult");
 
-async function checkUrl(targetUrl) {
-  const apiKey = process.env.IPQS_API_KEY;
+async function startCheck(targetUrl) {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
-  if (!apiKey) {
-    throw new WebRiskError("IPQS_API_KEY não configurada", {
-      code: "MISSING_API_KEY",
-    });
+  if (typeof targetUrl !== "string" || !targetUrl.trim()) {
+    throw new UrlScanError("Informe uma URL valida", { code: "INVALID_URL" });
   }
 
-  if (
-    typeof targetUrl !== "string" ||
-    !targetUrl.trim()
-  ) {
-    throw new WebRiskError("Informe uma URL válida", {
-      code: "INVALID_URL",
-    });
+  const scanId = await submitScan(targetUrl.trim(), accountId, apiToken);
+  return { scanId };
+}
+
+async function getCheckResult(scanId) {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+
+  const { pending, result } = await getScanResult(scanId, accountId, apiToken);
+
+  if (pending) {
+    return { status: "pending" };
   }
 
-  const normalizedUrl = targetUrl.trim();
+  return { status: "ready", ...new VerificationResult(result) };
+}
 
-  const result = await executeWithRetry(() =>
-    checkUrlWithProvider(normalizedUrl, apiKey)
-  );
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-  return {
-    safe: !result.unsafe,
-    malware: result.malware,
-    phishing: result.phishing,
-    suspicious: result.suspicious,
-    riskScore: result.risk_score,
-  };
+async function checkUrlAndWait(targetUrl) {
+  const { URL_CHECK_PROVIDER } = require("../config/config");
+  const { scanId } = await startCheck(targetUrl);
+
+  for (let attempt = 0; attempt < URL_CHECK_PROVIDER.MAX_POLL_ATTEMPTS; attempt++) {
+    await sleep(URL_CHECK_PROVIDER.POLL_INTERVAL_MS);
+    const resultado = await getCheckResult(scanId);
+    if (resultado.status === "ready") {
+      return resultado;
+    }
+  }
+
+  throw new UrlScanError("O escaneamento demorou demais para concluir", { code: "TIMEOUT" });
 }
 
 module.exports = {
-  checkUrl,
-  WebRiskError,
+  startCheck,
+  getCheckResult,
+  checkUrlAndWait,
+  UrlScanError,
 };
