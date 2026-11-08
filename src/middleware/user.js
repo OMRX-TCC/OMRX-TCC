@@ -54,6 +54,28 @@ async function validateLogin(req, resp, next) {
     next();
 }
 
+async function validateUpdate(req, resp, next) {
+    const { name, email, password } = req.body;
+
+    if (name === undefined && email === undefined && password === undefined) {
+        return resp.status(400).json({ error: "Informe ao menos um campo para atualizar." });
+    }
+
+    if (name !== undefined && !name.trim()) {
+        return resp.status(400).json({ error: "Nome inválido." });
+    }
+
+    if (email !== undefined && !/^\S+@\S+\.\S+$/.test(email)) {
+        return resp.status(400).json({ error: "Email inválido." });
+    }
+
+    if (password !== undefined && password.length < 8) {
+        return resp.status(400).json({ error: "A senha deve ter ao menos 8 caracteres." });
+    }
+
+    next();
+}
+
 function validateResendVerification(req, resp, next) {
     const { email } = req.body;
 
@@ -64,4 +86,4 @@ function validateResendVerification(req, resp, next) {
     next();
 }
 
-module.exports = { validateRegister, validateLogin, validateResendVerification };
+module.exports = { validateRegister, validateLogin, validateUpdate, validateResendVerification };
