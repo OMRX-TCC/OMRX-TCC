@@ -1,5 +1,5 @@
 function validateUrl(req, res, next) {
-  const { url } = req.body;
+  const { url } = req.body ?? {};
 
   if (!url || typeof url !== "string") {
     return res.status(400).json({

@@ -3,10 +3,14 @@ const bcrypt = require("bcryptjs");
 const { EMAIL_VERIFICATION_MESSAGES } = require("../config/config");
 
 async function validateRegister(req, resp, next) {
-    const { name, email, password, repeatPassword } = req.body;
+    const { name, email, password, repeatPassword } = req.body ?? {};
 
     if (!name || !email || !password || !repeatPassword) {
         return resp.status(400).json({ error: "Todos os campos são obrigatórios." })
+    }
+
+    if ([name, email, password, repeatPassword].some((value) => typeof value !== "string")) {
+        return resp.status(400).json({ error: "Os campos devem ser texto." });
     }
 
     if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -25,10 +29,14 @@ async function validateRegister(req, resp, next) {
 }
 
 async function validateLogin(req, resp, next) {
-    const { email, password } = req.body;
+    const { email, password } = req.body ?? {};
 
     if (!email || !password) {
         return resp.status(401).json({ error: "Os campos email e senha são obrigatórios."});
+    }
+
+    if (typeof email !== "string" || typeof password !== "string") {
+        return resp.status(401).json({ error: "Email ou senha inválidos" });
     }
 
     const user = await UserModel.findOneByEmail(email);
@@ -55,7 +63,7 @@ async function validateLogin(req, resp, next) {
 }
 
 function validateResendVerification(req, resp, next) {
-    const { email } = req.body;
+    const { email } = req.body ?? {};
 
     if (typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email.trim())) {
         return resp.status(400).json({ error: "Email inválido." });
