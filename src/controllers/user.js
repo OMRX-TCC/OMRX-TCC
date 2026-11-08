@@ -42,6 +42,18 @@ async function login(req, resp) {
     return resp.status(200).json({ token });
 }
 
+async function remove(req, resp) {
+    const id = Number(req.params.id);
+
+    if (id !== req.auth.id) {
+        return resp.status(403).json({ error: "Você só pode excluir sua própria conta." });
+    }
+
+    await userModel.remove(id);
+
+    return resp.status(204).send();
+}
+
 async function verifyEmail(req, resp) {
     try {
         await emailVerificationService.verifyEmail(req.body.token);
@@ -70,4 +82,4 @@ async function resendVerification(req, resp) {
     return resp.status(200).json({ message: EMAIL_VERIFICATION_MESSAGES.RESEND_ACCEPTED });
 }
 
-module.exports = { create, login, verifyEmail, resendVerification }
+module.exports = { create, login, remove, verifyEmail, resendVerification }
