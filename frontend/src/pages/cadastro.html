@@ -13,7 +13,8 @@
     />
 
     <link rel="stylesheet" href="../styles/main.css" />
-    <link rel="stylesheet" href="../styles/cadastro.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
     <script type="module" src="../scripts/pages/cadastro.js"></script>
   </head>
   <body>
@@ -35,16 +36,16 @@
           <li><a class="navbar__link" href="../index.html#como-funciona">Como funciona</a></li>
           <li><a class="navbar__link" href="../index.html#faq">FAQ</a></li>
           <li><a class="navbar__link" href="../index.html#desenvolvedores">Desenvolvedores</a></li>
+          <li>
+            <a class="navbar__link" href="../index.html#dicas-de-seguranca">Dicas de Segurança</a>
+          </li>
         </ul>
       </nav>
     </header>
 
     <main class="auth-page">
       <section class="auth-card" aria-labelledby="cadastro-titulo">
-        <div class="auth-card__head">
-          <h1 id="cadastro-titulo" class="auth-card__title">Crie sua conta grátis</h1>
-          <p class="auth-card__subtitle">Guarde seu histórico de verificações.</p>
-        </div>
+        <h1 id="cadastro-titulo" class="auth-card__title">Crie sua conta grátis</h1>
 
         <form id="cadastro-form" class="auth-form" novalidate>
           <div class="auth-form__fields">
@@ -110,7 +111,7 @@
             </div>
           </div>
 
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-status" id="form-status" role="status"></p>
 
           <button class="button-primary" type="submit">Criar conta</button>
         </form>

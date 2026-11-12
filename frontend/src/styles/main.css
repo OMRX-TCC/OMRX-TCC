@@ -24,6 +24,9 @@
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
+  --radius-md: 10px;
+  --radius-lg: 20px;
+
   --page-gutter: 96px;
   --content-max-width: 1248px;
 }
