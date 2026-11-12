@@ -44,3 +44,8 @@ export function postJson(path, data) {
     body: JSON.stringify(data),
   });
 }
+
+/** Mensagem de erro amigavel: a da API quando disponivel, senao `fallback`. */
+export function getErrorMessage(error, fallback) {
+  return error instanceof ApiError ? error.message : fallback;
+}

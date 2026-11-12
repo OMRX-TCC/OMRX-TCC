@@ -8,3 +8,8 @@ export function createUser({ name, email, password, repeatPassword }) {
     repeatPassword,
   });
 }
+
+/** Reenvia o e-mail de verificacao de cadastro. */
+export function resendVerificationEmail(email) {
+  return postJson("/users/resend-verification", { email: email.trim() });
+}

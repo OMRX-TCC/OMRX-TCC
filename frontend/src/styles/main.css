@@ -9,6 +9,7 @@
   --color-white: #f4f4f4;
   --color-orange: #ee5a3c;
   --color-black: #000000;
+  --color-orange-15: rgba(238, 90, 60, 0.15);
   --color-error: #ff8a73;
 
   --color-white-80: rgba(244, 244, 244, 0.8);
@@ -61,6 +62,10 @@ a {
 
 img {
   display: block;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 button,

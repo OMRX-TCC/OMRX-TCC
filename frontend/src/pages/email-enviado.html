@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verifique seu e-mail | OMRX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap"
+    />
+
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/pages/emailEnviado.js"></script>
+  </head>
+  <body>
+    <!-- Header: usar o template do navbar (PR dedicado) -->
+
+    <main class="auth-page auth-page--notice">
+      <section class="auth-card auth-card--notice" aria-labelledby="email-enviado-titulo">
+        <div class="auth-card__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect x="2.333" y="4.667" width="23.333" height="18.667" rx="2.333" />
+            <path d="M2.333 7L14 14L25.667 7" />
+          </svg>
+        </div>
+
+        <div class="auth-card__head">
+          <h1 id="email-enviado-titulo" class="auth-card__title">Verifique seu e-mail</h1>
+
+          <p class="auth-card__text">
+            Enviamos um link para a ativação da sua conta em
+            <span id="email-target">seu e-mail</span>. Se não encontrar, confira sua caixa de spam.
+          </p>
+        </div>
+
+        <a class="button-primary" href="./login.html">Já ativei minha conta</a>
+
+        <p class="form-status" id="form-status" role="status"></p>
+
+        <p class="auth-switch" id="resend-row">
+          <span>Não recebeu o e-mail?</span>
+          <button class="auth-switch__link link-button" id="resend-button" type="button">
+            Reenviar
+          </button>
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer: usar o template do footer (PR dedicado) -->
+  </body>
+</html>
