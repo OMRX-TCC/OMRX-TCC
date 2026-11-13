@@ -1,4 +1,4 @@
-// Espelha as regras do backend em src/middleware/user.js (validateRegister).
+// Espelha as regras do backend em src/middleware/user.js (validateRegister e validateLogin).
 // Ao alterar uma regra la, altere aqui tambem.
 
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
@@ -37,6 +37,18 @@ const registerRules = {
   },
 };
 
+const loginRules = {
+  email: registerRules.email,
+
+  password({ password }) {
+    if (!password) return "Informe sua senha.";
+    return null;
+  },
+};
+
+const validateAll = (rules, values) =>
+  Object.fromEntries(Object.keys(rules).map((field) => [field, rules[field](values)]));
+
 export const REGISTER_FIELDS = Object.keys(registerRules);
 
 export function validateRegisterField(field, values) {
@@ -44,7 +56,15 @@ export function validateRegisterField(field, values) {
 }
 
 export function validateRegister(values) {
-  return Object.fromEntries(
-    REGISTER_FIELDS.map((field) => [field, validateRegisterField(field, values)])
-  );
+  return validateAll(registerRules, values);
+}
+
+export const LOGIN_FIELDS = Object.keys(loginRules);
+
+export function validateLoginField(field, values) {
+  return loginRules[field](values);
+}
+
+export function validateLogin(values) {
+  return validateAll(loginRules, values);
 }

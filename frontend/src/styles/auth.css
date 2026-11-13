@@ -37,6 +37,18 @@
   gap: var(--card-gap);
 }
 
+.auth-form__forgot {
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--color-sky);
+}
+
+.auth-form__forgot:hover,
+.auth-form__forgot:focus-visible {
+  text-decoration: underline;
+}
+
 /* --------------------------------------------------------------------------
    Divisor e link para outra tela de autenticacao
    -------------------------------------------------------------------------- */
@@ -94,6 +106,10 @@
     border-radius: 18px;
   }
 
+  .auth-card--login {
+    padding-bottom: 28px;
+  }
+
   .auth-card__title {
     font-size: 28px;
     line-height: 32px;
@@ -102,6 +118,11 @@
   .auth-form__fields {
     gap: 14px;
     padding-top: 6px;
+  }
+
+  .auth-form__forgot {
+    padding: 2px 0 6px;
+    font-size: 14px;
   }
 
   .auth-divider {

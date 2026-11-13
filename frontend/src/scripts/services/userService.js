@@ -8,3 +8,10 @@ export function createUser({ name, email, password, repeatPassword }) {
     repeatPassword,
   });
 }
+
+export function loginUser({ email, password }) {
+  return postJson("/users/login", {
+    email: email.trim(),
+    password,
+  });
+}

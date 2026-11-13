@@ -88,8 +88,8 @@ class OmrxHeader extends HTMLElement {
 
     const guestActions = `
       <div class="header__actions">
-        <a class="header__button header__button--secondary" href="/pages/entrar.html">Entrar</a>
-        <a class="header__button header__button--primary" href="/pages/cadastrar.html">Cadastrar</a>
+        <a class="header__button header__button--secondary" href="/pages/login.html">Entrar</a>
+        <a class="header__button header__button--primary" href="/pages/cadastro.html">Cadastrar</a>
       </div>`;
 
     const avatar = `

@@ -1,7 +1,8 @@
 // Mapa das paginas do frontend. Os caminhos sao relativos a pages/ (onde ficam as telas).
 // Paginas marcadas como "pendente" ainda nao foram criadas.
 export const PAGES = {
-  login: "./login.html", // pendente
+  home: "../index.html",
+  login: "./login.html",
   verifyEmail: "./verificar-email.html", // pendente
 };
 

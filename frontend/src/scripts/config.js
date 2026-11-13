@@ -6,6 +6,14 @@ export const REGISTER_MESSAGES = {
   unexpectedError: "Não foi possível criar sua conta. Tente novamente.",
 };
 
+export const LOGIN_MESSAGES = {
+  submitting: "Entrando...",
+  unexpectedError: "Não foi possível entrar. Tente novamente.",
+};
+
+// Chave do localStorage onde fica o JWT retornado por POST /users/login
+export const AUTH_TOKEN_KEY = "omrx:token";
+
 export const STATUS_CLASSES = {
   error: "form-status--error",
   success: "form-status--success",

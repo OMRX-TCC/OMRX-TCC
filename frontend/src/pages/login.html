@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar | OMRX</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/footer.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/components/omrx-header.js"></script>
+    <script type="module" src="../scripts/components/omrx-footer.js"></script>
+    <script type="module" src="../scripts/pages/login.js"></script>
+  </head>
+  <body>
+    <omrx-header no-actions></omrx-header>
+
+    <main class="auth-page">
+      <section class="auth-card auth-card--login" aria-labelledby="login-titulo">
+        <h1 id="login-titulo" class="auth-card__title">Bem-vindo de volta</h1>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="auth-form__fields">
+            <div class="form-field">
+              <label class="form-field__label" for="email">E-mail</label>
+              <input
+                class="form-field__input"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="voce@email.com"
+                autocomplete="email"
+                aria-describedby="email-error"
+                required
+              />
+              <p class="form-field__error" id="email-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="password">Senha</label>
+              <input
+                class="form-field__input"
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+                aria-describedby="password-error"
+                required
+              />
+              <p class="form-field__error" id="password-error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <a class="auth-form__forgot" href="./esqueci-senha.html">Esqueci minha senha</a>
+
+          <p class="form-status" id="form-status" role="status"></p>
+
+          <button class="button-primary" type="submit">Entrar</button>
+        </form>
+
+        <div class="auth-divider" role="separator">
+          <span class="auth-divider__text">ou</span>
+        </div>
+
+        <p class="auth-switch">
+          <span>Não tem uma conta?</span>
+          <a class="auth-switch__link" href="./cadastro.html">Cadastre-se</a>
+        </p>
+      </section>
+    </main>
+
+    <omrx-footer></omrx-footer>
+  </body>
+</html>
