@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verifique seu e-mail | OMRX</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap"
-    />
-
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
     <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/footer.css" />
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/components/omrx-header.js"></script>
+    <script type="module" src="../scripts/components/omrx-footer.js"></script>
     <script type="module" src="../scripts/pages/emailEnviado.js"></script>
   </head>
   <body>
-    <!-- Header: usar o template do navbar (PR dedicado) -->
+    <omrx-header no-actions></omrx-header>
 
     <main class="auth-page auth-page--notice">
       <section class="auth-card auth-card--notice" aria-labelledby="email-enviado-titulo">
@@ -51,6 +49,6 @@
       </section>
     </main>
 
-    <!-- Footer: usar o template do footer (PR dedicado) -->
+    <omrx-footer></omrx-footer>
   </body>
 </html>

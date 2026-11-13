@@ -1,0 +1,234 @@
+/*
+  Header OMRX
+  - Desktop (> 1024px): logo | links centralizados | botoes ou avatar
+  - Mobile/tablet (<= 1024px): logo | avatar + hamburguer, links em painel
+*/
+.header {
+  position: relative;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 43px;
+  height: 80px;
+  padding: 0 var(--page-gutter);
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-header-border);
+}
+
+.header__logo {
+  grid-column: 1;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.header__logo-mark {
+  width: 45px;
+  height: 45px;
+}
+
+.header__logo-text {
+  font-family: var(--font-brand);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--color-sky);
+}
+
+/* No desktop o painel nao existe: nav e botoes entram direto na grid */
+.header__menu {
+  display: contents;
+}
+
+.header__nav {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.header__link {
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(244 244 244 / 80%);
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.header__link:hover,
+.header__link[aria-current="page"] {
+  color: var(--color-white);
+}
+
+.header__link[aria-current="page"] {
+  border-bottom-color: var(--color-orange);
+}
+
+.header__actions {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.header__button--secondary {
+  border-color: var(--color-sky);
+  color: var(--color-sky);
+}
+
+.header__button--secondary:hover {
+  background: rgb(185 228 246 / 12%);
+}
+
+.header__button--primary {
+  background: var(--color-orange);
+  color: var(--color-black);
+}
+
+.header__button--primary:hover {
+  background: #f56f53;
+}
+
+/* Avatar + hamburguer ficam no mesmo grupo a direita */
+.header__end {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-sky);
+  border-radius: 50%;
+  background: var(--color-navy-dark);
+  color: var(--color-sky);
+  transition: background-color 0.15s;
+}
+
+.header__avatar:hover {
+  background: #232b6e;
+}
+
+.header__menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 40px;
+  border: 0;
+  background: none;
+  color: var(--color-sky);
+  cursor: pointer;
+}
+
+/* Deslogado no desktop: nada alem dos botoes, o grupo da direita some */
+.header--guest .header__end {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    height: 65px;
+  }
+
+  .header__logo-mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header__logo-text {
+    font-size: 20px;
+  }
+
+  .header__end,
+  .header--guest .header__end {
+    display: flex;
+  }
+
+  .header__avatar {
+    width: 40px;
+    height: 40px;
+    border-width: 1.5px;
+    background: transparent;
+  }
+
+  .header__menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Painel com links e botoes, aberto pelo hamburguer */
+  .header__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px var(--page-gutter) 24px;
+    background: var(--color-header-bg);
+    border-bottom: 1px solid var(--color-header-border);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 25%);
+  }
+
+  .header[data-open] .header__menu {
+    display: flex;
+  }
+
+  .header__nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .header__link {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-header-border);
+    font-size: 16px;
+  }
+
+  .header__link[aria-current="page"] {
+    border-bottom-color: var(--color-orange);
+  }
+
+  .header__actions {
+    justify-self: stretch;
+  }
+
+  .header__actions .header__button {
+    flex: 1;
+  }
+}
