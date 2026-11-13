@@ -14,30 +14,14 @@
 
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/cadastro.css" />
+    <link rel="stylesheet" href="/styles/components/header.css" />
+    <link rel="stylesheet" href="/styles/components/footer.css" />
+    <script type="module" src="/scripts/components/omrx-header.js"></script>
+    <script type="module" src="/scripts/components/omrx-footer.js"></script>
     <script type="module" src="../scripts/pages/cadastro.js"></script>
   </head>
   <body>
-    <header class="navbar">
-      <a class="logo" href="../index.html" aria-label="OMRX - página inicial">
-        <img
-          class="logo__mark"
-          src="../assets/images/omrx-logo-mark.svg"
-          width="32"
-          height="32"
-          alt=""
-        />
-        <span class="logo__text">OMRX</span>
-      </a>
-
-      <nav aria-label="Navegação principal">
-        <ul class="navbar__links">
-          <li><a class="navbar__link" href="../index.html">Home</a></li>
-          <li><a class="navbar__link" href="../index.html#como-funciona">Como funciona</a></li>
-          <li><a class="navbar__link" href="../index.html#faq">FAQ</a></li>
-          <li><a class="navbar__link" href="../index.html#desenvolvedores">Desenvolvedores</a></li>
-        </ul>
-      </nav>
-    </header>
+    <omrx-header></omrx-header>
 
     <main class="auth-page">
       <section class="auth-card" aria-labelledby="cadastro-titulo">
@@ -126,30 +110,6 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="footer__inner">
-        <div class="footer__brand">
-          <a class="logo" href="../index.html" aria-label="OMRX - página inicial">
-            <img
-              class="logo__mark"
-              src="../assets/images/omrx-logo-mark.svg"
-              width="28"
-              height="28"
-              alt=""
-            />
-            <span class="logo__text">OMRX</span>
-          </a>
-          <p class="footer__tagline">sua segurança em primeiro lugar</p>
-        </div>
-
-        <p class="footer__copyright">© 2026 OMRX. Todos os direitos reservados.</p>
-
-        <ul class="footer__links">
-          <li><a class="footer__link" href="#">Privacidade</a></li>
-          <li><a class="footer__link" href="#">Termos de uso</a></li>
-          <li><a class="footer__link" href="#">Contato</a></li>
-        </ul>
-      </div>
-    </footer>
+    <omrx-footer></omrx-footer>
   </body>
 </html>
