@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap");
+
 /* ==========================================================================
    Tokens
    ========================================================================== */
 :root {
+  /* Cores (Figma - Desktop 1440px / Mobile 390px) */
   --color-navy: #272f6a;
   --color-navy-dark: #1a2050;
   --color-indigo: #3a4490;
@@ -19,15 +22,17 @@
   --color-sky-55: rgba(185, 228, 246, 0.55);
   --color-sky-15: rgba(185, 228, 246, 0.15);
 
+  --color-header-bg: var(--color-navy);
+  --color-header-border: rgb(185 228 246 / 15%);
+  --color-footer-bg: var(--color-black);
+
+  /* Tipografia */
   --font-brand: "Bungee", sans-serif;
   --font-display: "Chakra Petch", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --color-header-bg: var(--color-navy);
-  --color-header-border: rgb(185 228 246 / 15%);
-  --color-footer-bg: var(--color-black);
-
+  /* Raios */
   --radius-md: 10px;
   --radius-lg: 20px;
 
@@ -50,9 +55,9 @@ html {
 }
 
 body {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   background-color: var(--color-navy);
   color: var(--color-white);
   font-family: var(--font-body);
