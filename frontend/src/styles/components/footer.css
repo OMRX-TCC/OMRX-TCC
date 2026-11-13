@@ -1,0 +1,98 @@
+/*
+  Footer OMRX
+  - Desktop (> 1024px): marca | copyright centralizado | links
+  - Mobile/tablet (<= 1024px): tudo empilhado e centralizado
+*/
+.footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 36px var(--page-gutter);
+  background: var(--color-footer-bg);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__logo-mark {
+  width: 28px;
+  height: 28px;
+}
+
+.footer__logo-text {
+  font-family: var(--font-brand);
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-sky);
+}
+
+.footer__slogan {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgb(185 228 246 / 75%);
+}
+
+.footer__copyright {
+  font-size: 13px;
+  text-align: center;
+  color: rgb(244 244 244 / 55%);
+}
+
+.footer__links {
+  justify-self: end;
+  display: flex;
+  gap: 32px;
+}
+
+.footer__link {
+  font-size: 14px;
+  color: rgb(244 244 244 / 75%);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer__link:hover {
+  color: var(--color-white);
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .footer__brand {
+    align-items: center;
+  }
+
+  .footer__logo-mark {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Ordem do Figma mobile: logo, slogan, links, copyright */
+  .footer__links {
+    grid-row: 2;
+    justify-self: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+    padding: 12px 0 10px;
+  }
+
+  .footer__copyright {
+    grid-row: 3;
+  }
+}
