@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar conta | OMRX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap"
+    />
+
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/cadastro.css" />
+    <script type="module" src="../scripts/pages/cadastro.js"></script>
+  </head>
+  <body>
+    <header class="navbar">
+      <a class="logo" href="../index.html" aria-label="OMRX - página inicial">
+        <img
+          class="logo__mark"
+          src="../assets/images/omrx-logo-mark.svg"
+          width="32"
+          height="32"
+          alt=""
+        />
+        <span class="logo__text">OMRX</span>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <ul class="navbar__links">
+          <li><a class="navbar__link" href="../index.html">Home</a></li>
+          <li><a class="navbar__link" href="../index.html#como-funciona">Como funciona</a></li>
+          <li><a class="navbar__link" href="../index.html#faq">FAQ</a></li>
+          <li><a class="navbar__link" href="../index.html#desenvolvedores">Desenvolvedores</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="auth-page">
+      <section class="auth-card" aria-labelledby="cadastro-titulo">
+        <div class="auth-card__head">
+          <h1 id="cadastro-titulo" class="auth-card__title">Crie sua conta grátis</h1>
+          <p class="auth-card__subtitle">Guarde seu histórico de verificações.</p>
+        </div>
+
+        <form id="cadastro-form" class="auth-form" novalidate>
+          <div class="auth-form__fields">
+            <div class="form-field">
+              <label class="form-field__label" for="name">Nome</label>
+              <input
+                class="form-field__input"
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Seu nome completo"
+                autocomplete="name"
+                aria-describedby="name-error"
+                required
+              />
+              <p class="form-field__error" id="name-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="email">E-mail</label>
+              <input
+                class="form-field__input"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="voce@email.com"
+                autocomplete="email"
+                aria-describedby="email-error"
+                required
+              />
+              <p class="form-field__error" id="email-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="password">Senha</label>
+              <input
+                class="form-field__input"
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Crie uma senha forte"
+                autocomplete="new-password"
+                minlength="8"
+                aria-describedby="password-error"
+                required
+              />
+              <p class="form-field__error" id="password-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="repeatPassword">Confirmar senha</label>
+              <input
+                class="form-field__input"
+                id="repeatPassword"
+                name="repeatPassword"
+                type="password"
+                placeholder="Confirme a senha"
+                autocomplete="new-password"
+                aria-describedby="repeatPassword-error"
+                required
+              />
+              <p class="form-field__error" id="repeatPassword-error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+          <button class="button-primary" type="submit">Criar conta</button>
+        </form>
+
+        <div class="auth-divider" role="separator">
+          <span class="auth-divider__text">ou</span>
+        </div>
+
+        <p class="auth-switch">
+          <span>Já tem uma conta?</span>
+          <a class="auth-switch__link" href="./login.html">Entrar</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a class="logo" href="../index.html" aria-label="OMRX - página inicial">
+            <img
+              class="logo__mark"
+              src="../assets/images/omrx-logo-mark.svg"
+              width="28"
+              height="28"
+              alt=""
+            />
+            <span class="logo__text">OMRX</span>
+          </a>
+          <p class="footer__tagline">sua segurança em primeiro lugar</p>
+        </div>
+
+        <p class="footer__copyright">© 2026 OMRX. Todos os direitos reservados.</p>
+
+        <ul class="footer__links">
+          <li><a class="footer__link" href="#">Privacidade</a></li>
+          <li><a class="footer__link" href="#">Termos de uso</a></li>
+          <li><a class="footer__link" href="#">Contato</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

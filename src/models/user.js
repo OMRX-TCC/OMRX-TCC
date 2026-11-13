@@ -27,4 +27,11 @@ async function findOneByEmail(email) {
     return rows[0];
 }
 
-module.exports = {create, findByEmail, findOneByEmail}
+async function markEmailAsVerified(userId) {
+    await pool.execute(
+        "UPDATE users SET user_email_verified_at = NOW() WHERE user_id = ?",
+        [userId]
+    );
+}
+
+module.exports = {create, findByEmail, findOneByEmail, markEmailAsVerified}

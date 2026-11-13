@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Tela de cadastro
+   ========================================================================== */
+.auth-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px var(--page-gutter);
+}
+
+.auth-card {
+  --card-gap: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  background-color: var(--color-navy-dark);
+  border: 1.5px solid var(--color-indigo);
+  border-radius: 20px;
+}
+
+.auth-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+.auth-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: normal;
+  color: var(--color-white);
+}
+
+.auth-card__subtitle {
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-white-75);
+}
+
+/* --------------------------------------------------------------------------
+   Formulario
+   -------------------------------------------------------------------------- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+.auth-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field__label {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--color-sky);
+}
+
+.form-field__input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: var(--color-navy);
+  border: 1.5px solid var(--color-indigo);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: normal;
+  color: var(--color-white);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.form-field__input::placeholder {
+  color: var(--color-sky-55);
+  opacity: 1;
+}
+
+.form-field__input:focus-visible {
+  border-color: var(--color-sky);
+}
+
+.form-field__input[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.form-field__error {
+  font-size: 13px;
+  color: var(--color-error);
+}
+
+.form-field__error:empty {
+  display: none;
+}
+
+.form-status {
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.form-status:empty {
+  display: none;
+}
+
+.form-status--error {
+  color: var(--color-error);
+}
+
+.form-status--success {
+  color: var(--color-sky);
+}
+
+/* --------------------------------------------------------------------------
+   Botao primario
+   -------------------------------------------------------------------------- */
+.button-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  background-color: var(--color-orange);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: normal;
+  color: var(--color-black);
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.button-primary:hover {
+  filter: brightness(1.08);
+}
+
+.button-primary:focus-visible {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 2px;
+}
+
+.button-primary:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   Divisor e link para login
+   -------------------------------------------------------------------------- */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-indigo);
+}
+
+.auth-divider__text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-sky-70);
+}
+
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-white-75);
+}
+
+.auth-switch__link {
+  font-weight: 600;
+  color: var(--color-orange);
+}
+
+.auth-switch__link:hover,
+.auth-switch__link:focus-visible {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 32px var(--page-gutter) 48px;
+  }
+
+  .auth-card {
+    --card-gap: 16px;
+
+    max-width: none;
+    padding: 28px 25px 90px;
+    border-radius: 18px;
+  }
+
+  .auth-card__head {
+    gap: 6px;
+  }
+
+  .auth-card__title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .auth-form__fields {
+    gap: 14px;
+    padding-top: 6px;
+  }
+
+  .form-field__label {
+    font-size: 14px;
+    color: var(--color-white);
+  }
+
+  .form-field__input {
+    font-family: var(--font-body);
+    font-size: 15px;
+  }
+
+  .button-primary {
+    padding: 15px 24px;
+  }
+
+  .auth-divider {
+    padding: 8px 0;
+  }
+
+  .auth-divider__text {
+    font-size: 13px;
+  }
+
+  .auth-switch {
+    padding-top: 8px;
+  }
+
+  .auth-switch__link {
+    color: var(--color-sky);
+  }
+}

@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test \"tests/**/*.test.js\"",
     "start": "node src/server.js",
     "postinstall": "node src/scripts/setup.js"
   },
@@ -24,7 +24,10 @@
     "dotenv": "^18.0.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.24.4"
+    "mysql2": "^3.24.4",
+    "nodemailer": "^10.3.1"
   },
-    "workspaces": ["frontend"]
+  "workspaces": [
+    "frontend"
+  ]
 }
