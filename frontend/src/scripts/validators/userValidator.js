@@ -1,5 +1,3 @@
-// Espelha as regras do backend em src/middleware/user.js (validateRegister e validateLogin).
-// Ao alterar uma regra la, altere aqui tambem.
 import { createValidator } from "./createValidator.js";
 
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
