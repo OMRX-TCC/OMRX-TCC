@@ -3,17 +3,247 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="O OMRX analisa o link em segundos e mostra se ele é seguro, suspeito ou malicioso."
+    />
     <title>OMRX</title>
+
     <link rel="icon" type="image/png" href="/assets/images/logo-omrx.png" />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/styles/components/header.css" />
     <link rel="stylesheet" href="/styles/components/footer.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
     <script type="module" src="/scripts/components/omrx-header.js"></script>
     <script type="module" src="/scripts/components/omrx-footer.js"></script>
+    <script type="module" src="/scripts/pages/home.js"></script>
   </head>
   <body>
     <omrx-header></omrx-header>
-    <main></main>
+
+    <main>
+      <section class="stats" aria-label="O OMRX em números">
+        <ul class="stats__list">
+          <li class="stats__item">
+            <strong class="stats__value">+2,4M</strong>
+            <span class="stats__label">links verificados</span>
+          </li>
+          <li class="stats__item">
+            <strong class="stats__value">Tempo real</strong>
+            <span class="stats__label">base de ameaças atualizada</span>
+          </li>
+          <li class="stats__item">
+            <strong class="stats__value stats__value--highlight">Grátis</strong>
+            <span class="stats__label">para verificações</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="hero" aria-labelledby="hero-titulo">
+        <div class="hero__inner">
+          <div class="hero__content">
+            <p class="hero__chip">Verificação de links em tempo real</p>
+
+            <h1 class="hero__title" id="hero-titulo">
+              Saiba se um link é <span class="hero__title-highlight">confiável</span> antes de
+              clicar
+            </h1>
+
+            <p class="hero__text">
+              O OMRX analisa o link em segundos e mostra se ele é seguro, suspeito ou malicioso.
+            </p>
+
+            <form class="link-check" id="link-check-form" novalidate hidden>
+              <div class="link-check__bar">
+                <label class="visually-hidden" for="link-url">Link para verificar</label>
+                <input
+                  class="link-check__input"
+                  id="link-url"
+                  name="url"
+                  type="text"
+                  inputmode="url"
+                  placeholder="Cole o link aqui: https://…"
+                  data-compact-placeholder="Cole o link aqui…"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby="link-url-error"
+                />
+                <button class="button-primary link-check__button" type="submit">Verificar</button>
+              </div>
+              <p class="form-field__error" id="link-url-error" aria-live="polite"></p>
+              <p class="form-status" role="status"></p>
+            </form>
+
+            <div class="hero__actions" id="hero-guest-actions" hidden>
+              <a class="button-secondary" href="/pages/login.html">Entrar</a>
+              <a class="button-primary" href="/pages/cadastro.html">Cadastrar</a>
+            </div>
+
+            <p class="hero__microcopy">
+              <span>Grátis</span>
+              <span class="hero__microcopy-divider" aria-hidden="true"></span>
+              <span>Resultado em segundos</span>
+            </p>
+          </div>
+
+          <figure class="result-preview" aria-label="Exemplo de resultado de uma verificação">
+            <div class="result-preview__bar" aria-hidden="true">
+              <span class="result-preview__dot"></span>
+              <span class="result-preview__dot"></span>
+              <span class="result-preview__dot"></span>
+              <span>omrx://verificação</span>
+            </div>
+
+            <p class="result-preview__badge">Suspeito</p>
+            <p class="result-preview__url">pagamento-seguro-banco.xyz</p>
+            <p class="result-preview__title">Não recomendamos abrir este link</p>
+
+            <dl class="result-preview__details">
+              <div class="result-preview__row">
+                <dt>Idade do domínio</dt>
+                <dd>3 dias</dd>
+              </div>
+              <div class="result-preview__row">
+                <dt>Listas de ameaças</dt>
+                <dd>2 ocorrências</dd>
+              </div>
+            </dl>
+
+            <div class="result-preview__risk">
+              <p class="result-preview__risk-head">
+                <span class="result-preview__risk-label">Nível de risco</span>
+                <span class="result-preview__risk-value">82 / 100</span>
+              </p>
+              <div class="result-preview__track" aria-hidden="true">
+                <div class="result-preview__fill"></div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <section class="tutorial" aria-labelledby="tutorial-titulo">
+        <div class="tutorial__inner">
+          <div class="tutorial__content">
+            <p class="section-eyebrow">Tutorial</p>
+            <h2 class="section-title" id="tutorial-titulo">Veja como usar o OMRX</h2>
+            <p class="section-text">
+              Um tutorial rápido mostra como verificar um link e entender o resultado.
+            </p>
+          </div>
+
+          <div class="tutorial__video" role="img" aria-label="Vídeo tutorial do OMRX">
+            <span class="tutorial__play">
+              <svg viewBox="0 0 22 27" aria-hidden="true">
+                <path d="M0 0L22 13.5L0 27Z" fill="currentColor" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works" aria-labelledby="como-funciona-titulo">
+        <div class="how-it-works__inner">
+          <div class="section-heading">
+            <p class="section-eyebrow">Como funciona</p>
+            <h2 class="section-title" id="como-funciona-titulo">
+              Três passos, do link ao veredito
+            </h2>
+          </div>
+
+          <ol class="steps">
+            <li class="step-card">
+              <span class="step-card__number">01</span>
+              <h3 class="step-card__title">Cole o link</h3>
+              <p class="step-card__text">
+                Copie a URL que você quer checar e cole no campo de verificação.
+              </p>
+            </li>
+            <li class="step-card">
+              <span class="step-card__number">02</span>
+              <h3 class="step-card__title">Analisamos</h3>
+              <p class="step-card__text">
+                Checamos domínio, certificado e listas de ameaças em tempo real.
+              </p>
+            </li>
+            <li class="step-card">
+              <span class="step-card__number">03</span>
+              <h3 class="step-card__title">Veja o resultado</h3>
+              <p class="step-card__text">
+                Receba um veredito claro: seguro, suspeito ou malicioso.
+              </p>
+            </li>
+          </ol>
+
+          <a class="text-link" href="/pages/como-funciona.html">Ver como funciona em detalhes →</a>
+        </div>
+      </section>
+
+      <section class="faq" aria-labelledby="faq-titulo">
+        <div class="faq__inner">
+          <div class="faq__intro">
+            <p class="section-eyebrow">FAQ</p>
+            <h2 class="section-title" id="faq-titulo">Perguntas frequentes</h2>
+            <p class="section-text">
+              Tudo o que você precisa saber sobre como o OMRX verifica seus links.
+            </p>
+          </div>
+
+          <div class="faq__list">
+            <details class="faq-item" open>
+              <summary class="faq-item__question">
+                O OMRX é gratuito?
+                <span class="faq-item__icon" aria-hidden="true"></span>
+              </summary>
+              <p class="faq-item__answer">
+                Sim. Verificar links é gratuito. Crie uma conta e experimente o serviço!
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__question">
+                Como funciona a verificação?
+                <span class="faq-item__icon" aria-hidden="true"></span>
+              </summary>
+              <p class="faq-item__answer">
+                Você cola o link e o OMRX consulta bases de reputação e listas de ameaças
+                atualizadas. Em poucos segundos, mostramos se ele é seguro, suspeito ou malicioso.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__question">
+                Meus dados ficam salvos?
+                <span class="faq-item__icon" aria-hidden="true"></span>
+              </summary>
+              <p class="faq-item__answer">
+                Guardamos apenas o necessário para manter sua conta, como nome e e-mail. Sua senha
+                nunca é armazenada em texto puro.
+              </p>
+            </details>
+          </div>
+
+          <a class="button-outline-navy faq__all" href="/pages/faq.html"
+            >Ver todas as perguntas →</a
+          >
+        </div>
+      </section>
+
+      <section class="developers-cta" aria-labelledby="desenvolvedores-titulo">
+        <div class="developers-cta__inner">
+          <div class="developers-cta__content">
+            <h2 class="developers-cta__title" id="desenvolvedores-titulo">
+              Feito por quem entende de segurança
+            </h2>
+            <p class="developers-cta__text">Conheça o time e a stack por trás do OMRX.</p>
+          </div>
+
+          <a class="button-navy" href="/pages/desenvolvedores.html">Ver desenvolvedores →</a>
+        </div>
+      </section>
+    </main>
+
     <omrx-footer></omrx-footer>
   </body>
 </html>

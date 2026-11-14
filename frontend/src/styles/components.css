@@ -107,6 +107,56 @@
 }
 
 /* --------------------------------------------------------------------------
+   Botoes secundarios
+   - secondary: contorno claro, para fundos escuros
+   - navy / outline-navy: para fundos claros
+   -------------------------------------------------------------------------- */
+.button-secondary,
+.button-navy,
+.button-outline-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    filter 0.15s ease;
+}
+
+.button-secondary {
+  border-color: var(--color-sky);
+  color: var(--color-sky);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-sky-12);
+}
+
+.button-navy {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+.button-navy:hover {
+  filter: brightness(1.25);
+}
+
+.button-outline-navy {
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+}
+
+.button-outline-navy:hover {
+  background-color: color-mix(in srgb, var(--color-navy) 8%, transparent);
+}
+
+/* --------------------------------------------------------------------------
    Botao com aparencia de link
    -------------------------------------------------------------------------- */
 .link-button {
