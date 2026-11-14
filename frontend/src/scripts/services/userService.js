@@ -8,3 +8,7 @@ export function createUser({ name, email, password, repeatPassword }) {
     repeatPassword,
   });
 }
+
+export function resendVerificationEmail(email) {
+  return postJson("/users/resend-verification", { email: email.trim() });
+}

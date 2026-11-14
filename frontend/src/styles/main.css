@@ -12,6 +12,7 @@
   --color-white: #f4f4f4;
   --color-orange: #ee5a3c;
   --color-black: #000000;
+  --color-orange-15: rgba(238, 90, 60, 0.15);
   --color-error: #ff8a73;
 
   --color-white-80: rgba(244, 244, 244, 0.8);
@@ -23,7 +24,7 @@
   --color-sky-15: rgba(185, 228, 246, 0.15);
 
   --color-header-bg: var(--color-navy);
-  --color-header-border: rgb(185 228 246 / 15%);
+  --color-header-border: var(--color-sky-15);
   --color-footer-bg: var(--color-black);
 
   /* Tipografia */
@@ -81,6 +82,10 @@ a {
 
 img {
   display: block;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 button,
