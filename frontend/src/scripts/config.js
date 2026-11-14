@@ -16,6 +16,4 @@ export const EMAIL_SENT_MESSAGES = {
   unexpectedError: "Não foi possível reenviar o e-mail. Tente novamente.",
 };
 
-// Intervalo minimo entre reenvios. Espelha EMAIL_VERIFICATION.RESEND_COOLDOWN_SECONDS do backend
-// (src/config/config.js): antes disso a API responde 200, mas nao envia o e-mail.
 export const RESEND_COOLDOWN_SECONDS = 60;

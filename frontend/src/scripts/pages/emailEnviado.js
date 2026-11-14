@@ -10,7 +10,6 @@ function initEmailSentPage() {
   const statusElement = document.getElementById("form-status");
   const email = readEmailFromQuery(window.location.search);
 
-  // Sem e-mail na URL nao ha para quem reenviar
   if (!email) {
     resendRow.hidden = true;
     return;

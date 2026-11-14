@@ -39,7 +39,6 @@ export function setSubmitting(button, isSubmitting, loadingText) {
   button.disabled = isSubmitting;
 }
 
-/** Desabilita o botao por `seconds`, exibindo a contagem regressiva no rotulo. */
 export function startCooldown(button, seconds) {
   const label = button.dataset.label ?? button.textContent;
   let remaining = seconds;
