@@ -32,6 +32,10 @@
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
+  /* Raios */
+  --radius-md: 10px;
+  --radius-lg: 20px;
+
   /* Espacamento lateral fluido: 96px em 1440px, 20px no mobile */
   --page-gutter: clamp(20px, 6.67vw, 96px);
   --content-max-width: 1248px;

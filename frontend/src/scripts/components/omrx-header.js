@@ -1,11 +1,12 @@
+import { PAGES } from "../routes.js";
+
 const NAV_LINKS = [
-  { label: "Home", href: "/index.html" },
-  { label: "Como funciona", href: "/pages/como-funciona.html" },
-  { label: "FAQ", href: "/pages/faq.html" },
-  { label: "Desenvolvedores", href: "/pages/desenvolvedores.html" },
+  { label: "Início", href: PAGES.home },
+  { label: "Como funciona", href: PAGES.howItWorks },
+  { label: "FAQ", href: PAGES.faq },
+  { label: "Desenvolvedores", href: PAGES.developers },
 ];
 
-// Deve ser o mesmo valor do breakpoint em header.css
 const MOBILE_QUERY = "(max-width: 1024px)";
 
 const AVATAR_ICON = `
@@ -28,10 +29,12 @@ const MENU_ICON = `
  * Uso:
  *   <omrx-header></omrx-header>          -> sem login (Entrar / Cadastrar)
  *   <omrx-header logged></omrx-header>   -> logado (avatar)
+ *   <omrx-header no-actions></omrx-header> -> sem botoes Entrar/Cadastrar
+ *                                           (telas de login/cadastro, onde eles sao redundantes)
  */
 class OmrxHeader extends HTMLElement {
   static get observedAttributes() {
-    return ["logged"];
+    return ["logged", "no-actions"];
   }
 
   connectedCallback() {
@@ -60,7 +63,6 @@ class OmrxHeader extends HTMLElement {
     if (!this.contains(event.target)) this.setOpen(false);
   };
 
-  // Ao voltar para o layout desktop o painel mobile precisa fechar
   onBreakpointChange = (event) => {
     if (!event.matches) this.setOpen(false);
   };
@@ -76,33 +78,34 @@ class OmrxHeader extends HTMLElement {
 
   render() {
     const logged = this.hasAttribute("logged");
+    const showGuestActions = !logged && !this.hasAttribute("no-actions");
     const current = window.location.pathname;
 
     const links = NAV_LINKS.map(({ label, href }) => {
-      const active = current === href || (href === "/index.html" && current === "/");
+      const active = current === href || (href === PAGES.home && current === "/");
       return `<a class="header__link" href="${href}"${active ? ' aria-current="page"' : ""}>${label}</a>`;
     }).join("");
 
     const guestActions = `
       <div class="header__actions">
-        <a class="header__button header__button--secondary" href="/pages/entrar.html">Entrar</a>
-        <a class="header__button header__button--primary" href="/pages/cadastrar.html">Cadastrar</a>
+        <a class="header__button header__button--secondary" href="${PAGES.login}">Entrar</a>
+        <a class="header__button header__button--primary" href="${PAGES.register}">Cadastrar</a>
       </div>`;
 
     const avatar = `
-      <a class="header__avatar" href="/pages/minha-conta.html" aria-label="Minha conta">
+      <a class="header__avatar" href="${PAGES.account}" aria-label="Minha conta">
         ${AVATAR_ICON}
       </a>`;
 
     this.innerHTML = `
       <header class="header ${logged ? "header--logged" : "header--guest"}">
-        <a class="header__logo" href="/index.html" aria-label="OMRX - pagina inicial">
+        <a class="header__logo" href="${PAGES.home}" aria-label="OMRX - pagina inicial">
           <img class="header__logo-mark" src="/assets/images/logo-omrx.png" alt="" width="45" height="45" />
           <span class="header__logo-text">OMRX</span>
         </a>
         <div class="header__menu" id="header-menu">
           <nav class="header__nav" aria-label="Principal">${links}</nav>
-          ${logged ? "" : guestActions}
+          ${showGuestActions ? guestActions : ""}
         </div>
         <div class="header__end">
           ${logged ? avatar : ""}

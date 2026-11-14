@@ -1,0 +1,122 @@
+/* ==========================================================================
+   Telas de autenticacao (cadastro, login)
+   ========================================================================== */
+.auth-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px var(--page-gutter);
+}
+
+.auth-card {
+  --card-gap: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  background-color: var(--color-navy-dark);
+  border: 1.5px solid var(--color-indigo);
+  border-radius: var(--radius-lg);
+}
+
+.auth-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--color-white);
+}
+
+.auth-form,
+.auth-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+/* --------------------------------------------------------------------------
+   Divisor e link para outra tela de autenticacao
+   -------------------------------------------------------------------------- */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-indigo);
+}
+
+.auth-divider__text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-sky-70);
+}
+
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-white-75);
+}
+
+.auth-switch__link {
+  font-weight: 600;
+  color: var(--color-orange);
+}
+
+.auth-switch__link:hover,
+.auth-switch__link:focus-visible {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 32px var(--page-gutter) 48px;
+  }
+
+  .auth-card {
+    --card-gap: 16px;
+
+    max-width: none;
+    padding: 28px 25px 90px;
+    border-radius: 18px;
+  }
+
+  .auth-card__title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .auth-form__fields {
+    gap: 14px;
+    padding-top: 6px;
+  }
+
+  .auth-divider {
+    padding: 8px 0;
+  }
+
+  .auth-divider__text {
+    font-size: 13px;
+  }
+
+  .auth-switch {
+    padding-top: 8px;
+  }
+
+  .auth-switch__link {
+    color: var(--color-sky);
+  }
+}

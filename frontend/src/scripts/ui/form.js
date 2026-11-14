@@ -1,7 +1,4 @@
-const STATUS_CLASSES = {
-  error: "form-status--error",
-  success: "form-status--success",
-};
+import { STATUS_CLASSES } from "../config.js";
 
 export function getFormValues(form, fields) {
   return Object.fromEntries(fields.map((field) => [field, form.elements[field].value]));
@@ -13,7 +10,7 @@ export function isFieldInvalid(input) {
 
 export function showFieldError(form, field, message) {
   const input = form.elements[field];
-  const errorElement = document.getElementById(input.getAttribute("aria-describedby"));
+  const errorElement = document.getElementById(`${input.id}-error`);
 
   errorElement.textContent = message ?? "";
   input.setAttribute("aria-invalid", String(Boolean(message)));
