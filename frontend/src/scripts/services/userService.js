@@ -12,3 +12,8 @@ export function createUser({ name, email, password, repeatPassword }) {
 export function resendVerificationEmail(email) {
   return postJson("/users/resend-verification", { email: email.trim() });
 }
+
+export async function login({ email, password }) {
+  const { token } = await postJson("/users/login", { email: email.trim(), password });
+  localStorage.setItem("omrx:token", token);
+}

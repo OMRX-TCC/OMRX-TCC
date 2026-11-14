@@ -1,6 +1,6 @@
 import { LOGIN_MESSAGES } from "../messages.js";
 import { PAGES } from "../routes.js";
-import { login } from "../services/authService.js";
+import { login } from "../services/userService.js";
 import { initValidatedForm } from "../ui/validatedForm.js";
 import { loginValidator } from "../validators/userValidator.js";
 
