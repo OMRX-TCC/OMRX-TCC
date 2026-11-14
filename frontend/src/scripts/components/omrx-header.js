@@ -6,9 +6,10 @@ const NAV_LINKS = [
   { label: "Como funciona", href: PAGES.howItWorks },
   { label: "FAQ", href: PAGES.faq },
   { label: "Desenvolvedores", href: PAGES.developers },
+  { label: "Dicas de Segurança", href: PAGES.securityTips },
 ];
 
-const MOBILE_MEDIA_QUERY = "(max-width: 1024px)";
+const MOBILE_MEDIA_QUERY = "(max-width: 1200px)";
 
 const GUEST_ACTIONS_HTML = `
   <div class="header__actions">

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap");
 
 /* ==========================================================================
    Tokens
@@ -16,6 +16,7 @@
   --color-error: #ff8a73;
 
   --color-white-80: rgba(244, 244, 244, 0.8);
+  --color-white-78: rgba(244, 244, 244, 0.78);
   --color-white-75: rgba(244, 244, 244, 0.75);
   --color-white-55: rgba(244, 244, 244, 0.55);
   --color-sky-75: rgba(185, 228, 246, 0.75);

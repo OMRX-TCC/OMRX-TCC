@@ -1,0 +1,270 @@
+/* ==========================================================================
+   Dicas de seguranca
+   - Desktop (> 1024px): Figma 1440px
+   - Mobile/tablet (<= 1024px): Figma 390px
+   ========================================================================== */
+
+.tips-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.tips-eyebrow::before {
+  content: "// ";
+  content: "// " / "";
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+.tips-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 72px var(--page-gutter);
+  text-align: center;
+}
+
+.tips-hero__title {
+  max-width: 1100px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 60px;
+  color: var(--color-white);
+}
+
+.tips-hero__text {
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--color-white-78);
+}
+
+/* --------------------------------------------------------------------------
+   Cards de dicas: 3 na primeira linha, 2 na segunda
+   -------------------------------------------------------------------------- */
+.tips {
+  padding: 48px var(--page-gutter);
+}
+
+.tips__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.tips__list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+}
+
+.tip-card {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  background-color: var(--color-navy-dark);
+  border: 1.5px solid var(--color-indigo);
+  border-radius: 16px;
+}
+
+.tip-card:nth-child(n + 4) {
+  grid-column: span 3;
+}
+
+.tip-card::before {
+  content: "";
+  width: 40px;
+  height: 3px;
+  background-color: var(--color-orange);
+}
+
+.tip-card__number,
+.scam-help__number {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-orange);
+}
+
+.tip-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-white);
+}
+
+.tip-card__text {
+  font-size: 16px;
+  line-height: 25px;
+  color: var(--color-white-75);
+}
+
+/* --------------------------------------------------------------------------
+   Caiu em um golpe
+   -------------------------------------------------------------------------- */
+.scam-help {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 36px;
+  background-color: var(--color-navy-dark);
+  border: 1.5px solid var(--color-orange);
+  border-radius: 16px;
+}
+
+.scam-help__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--color-white);
+}
+
+.scam-help__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  list-style: none;
+}
+
+.scam-help__step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scam-help__step-title {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--color-white);
+}
+
+.scam-help__step-text {
+  font-size: 15px;
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   Chamada para verificar um link
+   -------------------------------------------------------------------------- */
+.tips-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 64px var(--page-gutter);
+  background-color: var(--color-sky);
+  text-align: center;
+}
+
+.tips-cta__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 34px;
+  color: var(--color-navy);
+}
+
+.tips-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  background-color: var(--color-navy);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-white);
+  white-space: nowrap;
+  transition: filter 0.15s ease;
+}
+
+.tips-cta__button:hover {
+  filter: brightness(1.25);
+}
+
+/* ==========================================================================
+   Mobile/tablet
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .tips-hero {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 40px var(--page-gutter) 8px;
+    text-align: left;
+  }
+
+  .tips-hero__title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .tips-hero__text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .tips {
+    padding: 32px var(--page-gutter);
+  }
+
+  .tips__inner,
+  .tips__list {
+    gap: 16px;
+  }
+
+  .tips__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tip-card,
+  .tip-card:nth-child(n + 4) {
+    grid-column: auto;
+  }
+
+  .scam-help {
+    padding: 24px;
+  }
+
+  .scam-help__title {
+    font-size: 22px;
+  }
+
+  .scam-help__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  /* No mobile a chamada fica sobre o fundo navy, com o botao laranja */
+  .tips-cta {
+    gap: 18px;
+    padding: 16px var(--page-gutter) 56px;
+    background-color: transparent;
+  }
+
+  .tips-cta__title {
+    font-size: 26px;
+    line-height: 30px;
+    color: var(--color-white);
+  }
+
+  .tips-cta__button {
+    width: 100%;
+    padding: 15px 24px;
+    background-color: var(--color-orange);
+    color: var(--color-black);
+  }
+
+  .tips-cta__button:hover {
+    filter: brightness(1.08);
+  }
+}

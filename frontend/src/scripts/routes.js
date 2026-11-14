@@ -3,6 +3,7 @@ export const PAGES = {
   howItWorks: "/pages/como-funciona.html",
   faq: "/pages/faq.html",
   developers: "/pages/desenvolvedores.html",
+  securityTips: "/pages/dicas-de-seguranca.html",
   login: "/pages/login.html",
   register: "/pages/cadastro.html",
   emailSent: "/pages/email-enviado.html",
