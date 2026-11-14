@@ -1,5 +1,17 @@
 import { PAGES } from "../routes.js";
 
+const FOOTER_LINKS = [
+  { label: "Privacidade", href: PAGES.privacy },
+  { label: "Termos de uso", href: PAGES.terms },
+  { label: "Contato", href: PAGES.contact },
+];
+
+function renderFooterLinks() {
+  return FOOTER_LINKS.map(
+    ({ label, href }) => `<a class="footer__link" href="${href}">${label}</a>`
+  ).join("");
+}
+
 /**
  * Rodape padrao do OMRX.
  *
@@ -7,7 +19,7 @@ import { PAGES } from "../routes.js";
  */
 class OmrxFooter extends HTMLElement {
   connectedCallback() {
-    const year = new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
 
     this.innerHTML = `
       <footer class="footer">
@@ -18,12 +30,8 @@ class OmrxFooter extends HTMLElement {
           </div>
           <p class="footer__slogan">sua segurança em primeiro lugar</p>
         </div>
-        <p class="footer__copyright">© ${year} OMRX. Todos os direitos reservados.</p>
-        <nav class="footer__links" aria-label="Rodape">
-          <a class="footer__link" href="${PAGES.privacy}">Privacidade</a>
-          <a class="footer__link" href="${PAGES.terms}">Termos de uso</a>
-          <a class="footer__link" href="${PAGES.contact}">Contato</a>
-        </nav>
+        <p class="footer__copyright">© ${currentYear} OMRX. Todos os direitos reservados.</p>
+        <nav class="footer__links" aria-label="Rodape">${renderFooterLinks()}</nav>
       </footer>`;
   }
 }
