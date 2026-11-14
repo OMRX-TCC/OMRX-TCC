@@ -172,6 +172,11 @@
     font-size: 16px;
   }
 
+  .auth-card--verify-email .auth-card__text {
+    font-size: 17px;
+    line-height: 25px;
+  }
+
   .auth-card__title {
     font-size: 28px;
     line-height: 32px;

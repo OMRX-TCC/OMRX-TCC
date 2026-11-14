@@ -18,3 +18,8 @@ export const RESEND_EMAIL_MESSAGES = {
   resent: "Enviamos um novo link para o seu e-mail.",
   unexpectedError: "Não foi possível reenviar o e-mail. Tente novamente.",
 };
+
+export const VERIFY_EMAIL_MESSAGES = {
+  invalidLink: "Link de verificação inválido ou já utilizado.",
+  unexpectedError: "Não foi possível confirmar seu e-mail. Tente novamente.",
+};
