@@ -1,4 +1,5 @@
 import { PAGES } from "../routes.js";
+import { isLoggedIn } from "../services/userService.js";
 import { AVATAR_ICON, MENU_ICON } from "./icons.js";
 
 const NAV_LINKS = [
@@ -6,9 +7,10 @@ const NAV_LINKS = [
   { label: "Como funciona", href: PAGES.howItWorks },
   { label: "FAQ", href: PAGES.faq },
   { label: "Desenvolvedores", href: PAGES.developers },
+  { label: "Dicas de Segurança", href: PAGES.securityTips },
 ];
 
-const MOBILE_MEDIA_QUERY = "(max-width: 1024px)";
+const MOBILE_MEDIA_QUERY = "(max-width: 1200px)";
 
 const GUEST_ACTIONS_HTML = `
   <div class="header__actions">
@@ -34,25 +36,17 @@ function renderNavLinks() {
 }
 
 /**
- * Cabecalho padrao do OMRX.
+ * Cabecalho padrao do OMRX. Mostra o avatar quando o usuario esta logado
+ * (token salvo no localStorage) e os botoes Entrar/Cadastrar quando nao esta.
  *
  * Uso:
- *   <omrx-header></omrx-header>          -> sem login (Entrar / Cadastrar)
- *   <omrx-header logged></omrx-header>   -> logado (avatar)
+ *   <omrx-header></omrx-header>
  *   <omrx-header no-actions></omrx-header> -> sem botoes Entrar/Cadastrar
  *                                           (telas de login/cadastro, onde eles sao redundantes)
  */
 class OmrxHeader extends HTMLElement {
   static get observedAttributes() {
-    return ["logged", "no-actions"];
-  }
-
-  get isLoggedIn() {
-    return this.hasAttribute("logged");
-  }
-
-  get showsGuestActions() {
-    return !this.isLoggedIn && !this.hasAttribute("no-actions");
+    return ["no-actions"];
   }
 
   connectedCallback() {
@@ -102,18 +96,21 @@ class OmrxHeader extends HTMLElement {
   }
 
   render() {
+    const loggedIn = isLoggedIn();
+    const showsGuestActions = !loggedIn && !this.hasAttribute("no-actions");
+
     this.innerHTML = `
-      <header class="header ${this.isLoggedIn ? "header--logged" : "header--guest"}">
+      <header class="header ${loggedIn ? "header--logged" : "header--guest"}">
         <a class="header__logo" href="${PAGES.home}" aria-label="OMRX - pagina inicial">
           <img class="header__logo-mark" src="/assets/images/logo-omrx.png" alt="" width="45" height="45" />
           <span class="header__logo-text">OMRX</span>
         </a>
         <div class="header__menu" id="header-menu">
           <nav class="header__nav" aria-label="Principal">${renderNavLinks()}</nav>
-          ${this.showsGuestActions ? GUEST_ACTIONS_HTML : ""}
+          ${showsGuestActions ? GUEST_ACTIONS_HTML : ""}
         </div>
         <div class="header__end">
-          ${this.isLoggedIn ? ACCOUNT_LINK_HTML : ""}
+          ${loggedIn ? ACCOUNT_LINK_HTML : ""}
           <button class="header__menu-toggle" type="button" aria-label="Abrir menu"
                   aria-expanded="false" aria-controls="header-menu">
             ${MENU_ICON}

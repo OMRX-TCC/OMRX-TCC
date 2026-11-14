@@ -13,6 +13,11 @@ export const LOGIN_MESSAGES = {
   unexpectedError: "Não foi possível entrar. Tente novamente.",
 };
 
+export const LINK_CHECK_MESSAGES = {
+  submitting: "Verificando...",
+  unexpectedError: "Não foi possível verificar o link. Tente novamente.",
+};
+
 export const RESEND_EMAIL_MESSAGES = {
   resending: "Reenviando...",
   resent: "Enviamos um novo link para o seu e-mail.",

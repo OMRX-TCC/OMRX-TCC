@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap");
 
 /* ==========================================================================
    Tokens
@@ -15,13 +15,27 @@
   --color-orange-15: rgba(238, 90, 60, 0.15);
   --color-error: #ff8a73;
 
+  --color-pure-white: #ffffff;
+  --color-black-20: rgba(0, 0, 0, 0.2);
+
   --color-white-80: rgba(244, 244, 244, 0.8);
+  --color-white-78: rgba(244, 244, 244, 0.78);
   --color-white-75: rgba(244, 244, 244, 0.75);
+  --color-white-70: rgba(244, 244, 244, 0.7);
   --color-white-55: rgba(244, 244, 244, 0.55);
+  --color-sky-85: rgba(185, 228, 246, 0.85);
+  --color-sky-80: rgba(185, 228, 246, 0.8);
   --color-sky-75: rgba(185, 228, 246, 0.75);
   --color-sky-70: rgba(185, 228, 246, 0.7);
+  --color-sky-60: rgba(185, 228, 246, 0.6);
   --color-sky-55: rgba(185, 228, 246, 0.55);
+  --color-sky-45: rgba(185, 228, 246, 0.45);
+  --color-sky-35: rgba(185, 228, 246, 0.35);
   --color-sky-15: rgba(185, 228, 246, 0.15);
+  --color-sky-12: rgba(185, 228, 246, 0.12);
+  --color-sky-6: rgba(185, 228, 246, 0.06);
+  --color-navy-80: rgba(39, 47, 106, 0.8);
+  --color-navy-75: rgba(39, 47, 106, 0.75);
 
   --color-header-bg: var(--color-navy);
   --color-header-border: var(--color-sky-15);
