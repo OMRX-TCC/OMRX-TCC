@@ -1,4 +1,3 @@
-// O backend serve o frontend (express.static), entao a API compartilha a origem.
 export const API_BASE_URL = "";
 
 export const REGISTER_MESSAGES = {
