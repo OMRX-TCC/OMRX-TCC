@@ -9,6 +9,10 @@ export function createUser({ name, email, password, repeatPassword }) {
   });
 }
 
+export function verifyEmail(token) {
+  return postJson("/users/verify-email", { token });
+}
+
 export function resendVerificationEmail(email) {
   return postJson("/users/resend-verification", { email: email.trim() });
 }

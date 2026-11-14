@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmação de e-mail | OMRX</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/pages/verificar-email.js"></script>
+  </head>
+  <body>
+    <main class="auth-page auth-page--notice" aria-live="polite">
+      <section
+        class="auth-card auth-card--notice auth-card--verify-email"
+        id="verifying-card"
+        aria-labelledby="verifying-titulo"
+      >
+        <div class="auth-card__head">
+          <h1 id="verifying-titulo" class="auth-card__title">Confirmando e-mail...</h1>
+
+          <p class="auth-card__text">Aguarde enquanto validamos o seu link de ativação.</p>
+        </div>
+      </section>
+
+      <section
+        class="auth-card auth-card--notice auth-card--verify-email"
+        id="confirmed-card"
+        aria-labelledby="confirmed-titulo"
+        hidden
+      >
+        <div class="auth-card__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M23.333 7L10.5 19.833L4.667 14" />
+          </svg>
+        </div>
+
+        <div class="auth-card__head">
+          <h1 id="confirmed-titulo" class="auth-card__title">E-mail Confirmado!</h1>
+
+          <p class="auth-card__text">
+            Seu endereço de e-mail foi verificado com sucesso. Agora você já pode acessar sua conta.
+          </p>
+        </div>
+
+        <a class="button-primary" href="./login.html">Ir para o login</a>
+      </section>
+
+      <section
+        class="auth-card auth-card--notice auth-card--verify-email"
+        id="failed-card"
+        aria-labelledby="failed-titulo"
+        hidden
+      >
+        <div class="auth-card__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M21 7L7 21M7 7L21 21" />
+          </svg>
+        </div>
+
+        <div class="auth-card__head">
+          <h1 id="failed-titulo" class="auth-card__title">Não foi possível confirmar</h1>
+
+          <p class="auth-card__text" id="failed-message"></p>
+        </div>
+
+        <a class="button-primary" href="./login.html">Ir para o login</a>
+      </section>
+    </main>
+  </body>
+</html>
