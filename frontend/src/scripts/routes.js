@@ -13,12 +13,13 @@ export const PAGES = {
   contact: "/pages/contato.html",
 };
 
-const EMAIL_PARAM = "email";
+const EMAIL_QUERY_PARAM = "email";
 
 export function buildEmailSentUrl(email) {
-  return `${PAGES.emailSent}?${new URLSearchParams({ [EMAIL_PARAM]: email })}`;
+  const queryString = new URLSearchParams({ [EMAIL_QUERY_PARAM]: email });
+  return `${PAGES.emailSent}?${queryString}`;
 }
 
-export function readEmailFromQuery(search) {
-  return new URLSearchParams(search).get(EMAIL_PARAM)?.trim() || null;
+export function getEmailFromQueryString(queryString) {
+  return new URLSearchParams(queryString).get(EMAIL_QUERY_PARAM)?.trim() || null;
 }

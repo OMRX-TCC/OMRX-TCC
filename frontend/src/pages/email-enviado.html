@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../styles/auth.css" />
-    <script type="module" src="../scripts/pages/emailEnviado.js"></script>
+    <script type="module" src="../scripts/pages/email-enviado.js"></script>
   </head>
   <body>
     <main class="auth-page auth-page--notice">
@@ -26,15 +26,15 @@
 
           <p class="auth-card__text">
             Enviamos um link para a ativação da sua conta em
-            <span id="email-target">seu e-mail</span>. Se não encontrar, confira sua caixa de spam.
+            <span id="recipient-email">seu e-mail</span>. Se não encontrar, confira sua caixa de spam.
           </p>
         </div>
 
         <a class="button-primary" href="./login.html">Já ativei minha conta</a>
 
-        <p class="form-status" id="form-status" role="status"></p>
+        <p class="form-status" id="resend-status" role="status"></p>
 
-        <p class="auth-switch" id="resend-row">
+        <p class="auth-switch" id="resend-prompt">
           <span>Não recebeu o e-mail?</span>
           <button class="auth-switch__link link-button" id="resend-button" type="button">
             Reenviar

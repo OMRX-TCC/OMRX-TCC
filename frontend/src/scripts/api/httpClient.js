@@ -1,7 +1,5 @@
-import { API_BASE_URL } from "../config.js";
-
-const NETWORK_ERROR_MESSAGE = "Não foi possível conectar ao servidor. Tente novamente.";
-const DEFAULT_ERROR_MESSAGE = "Algo deu errado. Tente novamente.";
+import { API_BASE_URL, NETWORK_ERROR_STATUS } from "../config.js";
+import { HTTP_ERROR_MESSAGES } from "../messages.js";
 
 export class ApiError extends Error {
   constructor(message, status) {
@@ -11,7 +9,7 @@ export class ApiError extends Error {
   }
 }
 
-async function parseJsonBody(response) {
+async function readJsonBody(response) {
   try {
     return await response.json();
   } catch {
@@ -19,32 +17,32 @@ async function parseJsonBody(response) {
   }
 }
 
-async function request(path, options) {
+async function sendRequest(path, options) {
   let response;
 
   try {
     response = await fetch(`${API_BASE_URL}${path}`, options);
   } catch {
-    throw new ApiError(NETWORK_ERROR_MESSAGE, 0);
+    throw new ApiError(HTTP_ERROR_MESSAGES.network, NETWORK_ERROR_STATUS);
   }
 
-  const body = await parseJsonBody(response);
+  const responseBody = await readJsonBody(response);
 
   if (!response.ok) {
-    throw new ApiError(body.error || DEFAULT_ERROR_MESSAGE, response.status);
+    throw new ApiError(responseBody.error || HTTP_ERROR_MESSAGES.unknown, response.status);
   }
 
-  return body;
+  return responseBody;
 }
 
-export function postJson(path, data) {
-  return request(path, {
+export function postJson(path, requestBody) {
+  return sendRequest(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify(requestBody),
   });
 }
 
-export function getErrorMessage(error, fallback) {
-  return error instanceof ApiError ? error.message : fallback;
+export function getErrorMessage(error, fallbackMessage) {
+  return error instanceof ApiError ? error.message : fallbackMessage;
 }
