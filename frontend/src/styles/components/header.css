@@ -1,7 +1,7 @@
 /*
   Header OMRX
-  - Desktop (> 1024px): logo | links centralizados | botoes ou avatar
-  - Mobile/tablet (<= 1024px): logo | avatar + hamburguer, links em painel
+  - Desktop (> 1200px): logo | links centralizados | botoes ou avatar
+  - Mobile/tablet (<= 1200px): logo | avatar + hamburguer, links em painel
 */
 .header {
   position: relative;
@@ -157,7 +157,7 @@
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .header {
     display: flex;
     justify-content: space-between;
