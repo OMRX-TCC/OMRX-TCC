@@ -60,7 +60,6 @@ function initRegisterForm() {
 
     try {
       const { email } = await createUser(readValues());
-      // Mantem o botao desabilitado: a pagina esta sendo trocada
       window.location.assign(buildEmailSentUrl(email));
     } catch (error) {
       showFormStatus(

@@ -1,3 +1,5 @@
+import { PAGES } from "../routes.js";
+
 /**
  * Rodape padrao do OMRX.
  *
@@ -18,9 +20,9 @@ class OmrxFooter extends HTMLElement {
         </div>
         <p class="footer__copyright">© ${year} OMRX. Todos os direitos reservados.</p>
         <nav class="footer__links" aria-label="Rodape">
-          <a class="footer__link" href="/pages/privacidade.html">Privacidade</a>
-          <a class="footer__link" href="/pages/termos-de-uso.html">Termos de uso</a>
-          <a class="footer__link" href="/pages/contato.html">Contato</a>
+          <a class="footer__link" href="${PAGES.privacy}">Privacidade</a>
+          <a class="footer__link" href="${PAGES.terms}">Termos de uso</a>
+          <a class="footer__link" href="${PAGES.contact}">Contato</a>
         </nav>
       </footer>`;
   }
