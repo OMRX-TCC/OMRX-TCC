@@ -15,3 +15,7 @@ export function loginUser({ email, password }) {
     password,
   });
 }
+
+export function resendVerificationEmail(email) {
+  return postJson("/users/resend-verification", { email: email.trim() });
+}

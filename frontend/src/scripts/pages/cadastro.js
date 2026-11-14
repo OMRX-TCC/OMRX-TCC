@@ -1,13 +1,9 @@
-import { ApiError } from "../api/httpClient.js";
+import { getErrorMessage } from "../api/httpClient.js";
 import { REGISTER_MESSAGES } from "../config.js";
-import { buildVerifyEmailUrl } from "../routes.js";
+import { buildEmailSentUrl } from "../routes.js";
 import { createUser } from "../services/userService.js";
-import { REGISTER_FIELDS, validateRegister, validateRegisterField } from "../validators/userValidator.js";
-import { clearFormStatus, getFormValues, isFieldInvalid, setSubmitting, showFieldError, showFormStatus } from "../ui/form.js";
-
-function getErrorMessage(error) {
-  return error instanceof ApiError ? error.message : REGISTER_MESSAGES.unexpectedError;
-}
+import { REGISTER_FIELDS, validateRegister, validateRegisterField, } from "../validators/userValidator.js";
+import { clearFormStatus, getFormValues, isFieldInvalid, setSubmitting, showFieldError, showFormStatus, } from "../ui/form.js";
 
 function initRegisterForm() {
   const form = document.getElementById("cadastro-form");
@@ -53,10 +49,13 @@ function initRegisterForm() {
 
     try {
       const { email } = await createUser(readValues());
-      // Mantem o botao desabilitado: a pagina esta sendo trocada
-      window.location.assign(buildVerifyEmailUrl(email));
+      window.location.assign(buildEmailSentUrl(email));
     } catch (error) {
-      showFormStatus(statusElement, getErrorMessage(error), "error");
+      showFormStatus(
+        statusElement,
+        getErrorMessage(error, REGISTER_MESSAGES.unexpectedError),
+        "error"
+      );
       setSubmitting(submitButton, false);
     }
   }

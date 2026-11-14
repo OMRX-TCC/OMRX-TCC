@@ -1,15 +1,24 @@
-// Mapa das paginas do frontend. Os caminhos sao relativos a pages/ (onde ficam as telas).
-// Paginas marcadas como "pendente" ainda nao foram criadas.
 export const PAGES = {
-  home: "../index.html",
-  login: "./login.html",
-  verifyEmail: "./verificar-email.html", // pendente
+  home: "/index.html",
+  howItWorks: "/pages/como-funciona.html",
+  faq: "/pages/faq.html",
+  developers: "/pages/desenvolvedores.html",
+  login: "/pages/login.html",
+  register: "/pages/cadastro.html",
+  emailSent: "/pages/email-enviado.html",
+  confirmEmail: "/pages/verificar-email.html",
+  account: "/pages/minha-conta.html",
+  privacy: "/pages/privacidade.html",
+  terms: "/pages/termos-de-uso.html",
+  contact: "/pages/contato.html",
 };
 
-/**
- * Tela "verifique seu e-mail", exibida apos o cadastro.
- * Recebe o e-mail por query string para poder oferecer o reenvio (POST /users/resend-verification).
- */
-export function buildVerifyEmailUrl(email) {
-  return `${PAGES.verifyEmail}?${new URLSearchParams({ email })}`;
+const EMAIL_PARAM = "email";
+
+export function buildEmailSentUrl(email) {
+  return `${PAGES.emailSent}?${new URLSearchParams({ [EMAIL_PARAM]: email })}`;
+}
+
+export function readEmailFromQuery(search) {
+  return new URLSearchParams(search).get(EMAIL_PARAM)?.trim() || null;
 }

@@ -38,3 +38,24 @@ export function setSubmitting(button, isSubmitting, loadingText) {
 
   button.disabled = isSubmitting;
 }
+
+export function startCooldown(button, seconds) {
+  const label = button.dataset.label ?? button.textContent;
+  let remaining = seconds;
+
+  button.disabled = true;
+  button.textContent = `${label} (${remaining}s)`;
+
+  const timer = setInterval(() => {
+    remaining -= 1;
+
+    if (remaining <= 0) {
+      clearInterval(timer);
+      button.textContent = label;
+      button.disabled = false;
+      return;
+    }
+
+    button.textContent = `${label} (${remaining}s)`;
+  }, 1000);
+}

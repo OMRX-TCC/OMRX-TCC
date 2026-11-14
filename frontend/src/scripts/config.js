@@ -1,4 +1,3 @@
-// O backend serve o frontend (express.static), entao a API compartilha a origem.
 export const API_BASE_URL = "";
 
 export const REGISTER_MESSAGES = {
@@ -18,3 +17,11 @@ export const STATUS_CLASSES = {
   error: "form-status--error",
   success: "form-status--success",
 };
+
+export const EMAIL_SENT_MESSAGES = {
+  resending: "Reenviando...",
+  resent: "Enviamos um novo link para o seu e-mail.",
+  unexpectedError: "Não foi possível reenviar o e-mail. Tente novamente.",
+};
+
+export const RESEND_COOLDOWN_SECONDS = 60;

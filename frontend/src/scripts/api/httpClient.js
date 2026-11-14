@@ -44,3 +44,7 @@ export function postJson(path, data) {
     body: JSON.stringify(data),
   });
 }
+
+export function getErrorMessage(error, fallback) {
+  return error instanceof ApiError ? error.message : fallback;
+}
