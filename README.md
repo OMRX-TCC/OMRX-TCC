@@ -3,7 +3,7 @@
 ### Para rodar o projeto na sua maquina
 
 - Clone o projeto em sua maquina:
-````git clone https://github.com/OMRX-TCC/OMRX-TCC.git```
+```git clone https://github.com/OMRX-TCC/OMRX-TCC.git```
 
 - Dentro da pasta clonada do projeto, em seu terminal, rode:
 ```npm install```
