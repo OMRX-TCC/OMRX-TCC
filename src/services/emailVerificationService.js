@@ -1,89 +1,68 @@
-const { EMAIL_VERIFICATION } = require("../config/config");
-const userModel = require("../models/user");
-const tokenModel = require("../models/emailVerificationToken");
-const { sendMail } = require("../providers/mailProvider");
+const { APP_URL, EMAIL_VERIFICATION, ERROR_CODES } = require("../config");
+const { EMAIL_VERIFICATION_MESSAGES } = require("../messages");
+const emailVerificationTokenModel = require("../models/emailVerificationTokenModel");
+const userModel = require("../models/userModel");
+const mailProvider = require("../providers/mailProvider");
 const { buildVerificationEmail } = require("../templates/verificationEmail");
+const { normalizeEmail } = require("../utils/email");
+const { HTTP_STATUS, HttpError } = require("../utils/http");
 const { generateToken, hashToken } = require("../utils/token");
 
-class EmailVerificationError extends Error {
-  constructor(code) {
-    super(code);
-    this.name = "EmailVerificationError";
-    this.code = code;
-  }
+function buildVerificationUrl(token) {
+  return `${APP_URL}${EMAIL_VERIFICATION.pagePath}?token=${token}`;
 }
 
-function buildVerifyUrl(token) {
-  const appUrl = process.env.APP_URL || `http://localhost:${process.env.PORT || 3000}`;
+async function replaceVerificationToken(userId) {
+  const { token, tokenHash } = generateToken(EMAIL_VERIFICATION.tokenBytes);
 
-  return `${appUrl}${EMAIL_VERIFICATION.VERIFY_PAGE_PATH}?token=${token}`;
+  await emailVerificationTokenModel.deleteByUserId(userId);
+  await emailVerificationTokenModel.create({ userId, tokenHash, expiresInHours: EMAIL_VERIFICATION.expiresInHours });
+
+  return token;
+}
+
+async function isWithinResendCooldown(userId) {
+  const secondsSinceLastToken = await emailVerificationTokenModel.getSecondsSinceLastCreated(userId);
+  return secondsSinceLastToken !== null && secondsSinceLastToken < EMAIL_VERIFICATION.resendCooldownSeconds;
 }
 
 async function sendVerificationEmail({ id, name, email }) {
-  const { token, tokenHash } = generateToken(EMAIL_VERIFICATION.TOKEN_BYTES);
+  const token = await replaceVerificationToken(id);
 
-  await tokenModel.deleteByUserId(id);
-  await tokenModel.create({
-    userId: id,
-    tokenHash,
-    expiresInHours: EMAIL_VERIFICATION.EXPIRES_IN_HOURS,
-  });
-
-  const message = buildVerificationEmail({
+  const verificationEmail = buildVerificationEmail({
     name,
-    verifyUrl: buildVerifyUrl(token),
-    expiresInHours: EMAIL_VERIFICATION.EXPIRES_IN_HOURS,
+    verificationUrl: buildVerificationUrl(token),
+    expiresInHours: EMAIL_VERIFICATION.expiresInHours,
   });
 
-  await sendMail({ to: email, ...message });
+  await mailProvider.sendMail({ to: email, ...verificationEmail });
 }
 
 async function verifyEmail(token) {
-  if (typeof token !== "string" || !token) {
-    throw new EmailVerificationError("INVALID_TOKEN");
+  const storedToken = await emailVerificationTokenModel.findByTokenHash(hashToken(token));
+
+  if (!storedToken) {
+    throw new HttpError(EMAIL_VERIFICATION_MESSAGES.invalidToken, HTTP_STATUS.badRequest, { code: ERROR_CODES.invalidToken });
   }
 
-  const record = await tokenModel.findByHash(hashToken(token));
-
-  if (!record) {
-    throw new EmailVerificationError("INVALID_TOKEN");
+  if (storedToken.isExpired) {
+    throw new HttpError(EMAIL_VERIFICATION_MESSAGES.expiredToken, HTTP_STATUS.badRequest, { code: ERROR_CODES.expiredToken });
   }
 
-  if (record.expired) {
-    throw new EmailVerificationError("EXPIRED_TOKEN");
-  }
-
-  await userModel.markEmailAsVerified(record.user_id);
-  await tokenModel.deleteByUserId(record.user_id);
+  await userModel.markEmailAsVerified(storedToken.userId);
+  await emailVerificationTokenModel.deleteByUserId(storedToken.userId);
 }
-
 
 async function resendVerificationEmail(email) {
-  const user = await userModel.findOneByEmail(email);
+  const user = await userModel.findByEmail(normalizeEmail(email));
+  if (!user || user.emailVerifiedAt || (await isWithinResendCooldown(user.id))) return;
 
-  if (!user || user.user_email_verified_at) {
-    return;
+  try {
+    await sendVerificationEmail(user);
+  } catch (error) {
+    console.error("Falha ao reenviar e-mail de verificação:", error.message);
+    throw new HttpError(EMAIL_VERIFICATION_MESSAGES.sendFailed, HTTP_STATUS.badGateway, { cause: error });
   }
-
-  const secondsSinceLastToken = await tokenModel.getSecondsSinceLastToken(user.user_id);
-
-  if (
-    secondsSinceLastToken !== null &&
-    secondsSinceLastToken < EMAIL_VERIFICATION.RESEND_COOLDOWN_SECONDS
-  ) {
-    return;
-  }
-
-  await sendVerificationEmail({
-    id: user.user_id,
-    name: user.user_name,
-    email: user.user_email,
-  });
 }
 
-module.exports = {
-  sendVerificationEmail,
-  verifyEmail,
-  resendVerificationEmail,
-  EmailVerificationError,
-};
+module.exports = { sendVerificationEmail, verifyEmail, resendVerificationEmail };

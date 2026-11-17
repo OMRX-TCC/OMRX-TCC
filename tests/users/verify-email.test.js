@@ -3,12 +3,12 @@ const assert = require("node:assert/strict");
 
 const h = require("../helpers/harness");
 const f = require("../helpers/fixtures");
-const { db, post, config, expectResponse, runCases } = h;
+const { db, post, messages, expectResponse, runCases } = h;
 const { credentials, pendingUser, lastToken, silenceErrors, COOLDOWN } = f;
 
-const MSG = config.EMAIL_VERIFICATION_MESSAGES;
-const INVALID_TOKEN = { error: MSG.INVALID_TOKEN, code: "INVALID_TOKEN" };
-const EXPIRED_TOKEN = { error: MSG.EXPIRED_TOKEN, code: "EXPIRED_TOKEN" };
+const MSG = messages.EMAIL_VERIFICATION_MESSAGES;
+const INVALID_TOKEN = { error: MSG.invalidToken, code: "INVALID_TOKEN" };
+const EXPIRED_TOKEN = { error: MSG.expiredToken, code: "EXPIRED_TOKEN" };
 
 h.useServer();
 
@@ -19,7 +19,7 @@ describe("POST /users/verify-email — confirmação de email", () => {
 
       const res = await post("/users/verify-email", { token });
 
-      expectResponse(res, { status: 200, body: { message: MSG.VERIFIED } });
+      expectResponse(res, { status: 200, body: { message: MSG.verified } });
       assert.deepEqual(
         { verified: row.user_email_verified_at instanceof Date, tokensLeft: db.tokensOf(row.user_id).length },
         { verified: true, tokensLeft: 0 }
@@ -98,7 +98,7 @@ describe("POST /users/verify-email — confirmação de email", () => {
       await post("/users/resend-verification", { email: payload.email });
       const res = await post("/users/verify-email", { token: lastToken() });
 
-      expectResponse(res, { status: 200, body: { message: MSG.VERIFIED } });
+      expectResponse(res, { status: 200, body: { message: MSG.verified } });
     });
   });
 

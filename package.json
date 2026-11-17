@@ -13,10 +13,15 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "node --test \"tests/**/*.test.js\"",
     "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "lint": "eslint src tests eslint.config.js",
+    "lint:fix": "eslint src tests eslint.config.js --fix",
+    "format": "prettier --write \"src/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.js\"",
     "postinstall": "node src/scripts/setup.js"
   },
   "dependencies": {
@@ -29,5 +34,12 @@
   },
   "workspaces": [
     "frontend"
-  ]
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1"
+  }
 }

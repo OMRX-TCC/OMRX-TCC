@@ -2,10 +2,10 @@ const { describe, it } = require("node:test");
 
 const h = require("../helpers/harness");
 const f = require("../helpers/fixtures");
-const { post, defaultUser, config, expectResponse } = h;
+const { post, defaultUser, messages, expectResponse } = h;
 const { credentials, lastToken } = f;
 
-const MSG = config.EMAIL_VERIFICATION_MESSAGES;
+const MSG = messages.EMAIL_VERIFICATION_MESSAGES;
 
 h.useServer();
 
@@ -19,12 +19,12 @@ describe("Fluxo completo: cadastro → verificação de email → login", () => 
 
     expectResponse(await post("/users/login", credentials), {
       status: 403,
-      body: { error: MSG.NOT_VERIFIED, code: "EMAIL_NOT_VERIFIED" },
+      body: { error: messages.AUTH_MESSAGES.emailNotVerified, code: "EMAIL_NOT_VERIFIED" },
     });
 
     expectResponse(await post("/users/verify-email", { token: lastToken() }), {
       status: 200,
-      body: { message: MSG.VERIFIED },
+      body: { message: MSG.verified },
     });
 
     const login = await post("/users/login", credentials);

@@ -1,37 +1,23 @@
 const nodemailer = require("nodemailer");
+const { SMTP } = require("../config");
 
-const DEFAULT_SMTP_PORT = 465;
+const SECURE_SMTP_PORT = 465;
 
 let transporter;
 
 function getTransporter() {
-  if (!transporter) {
-    const port = Number(process.env.SMTP_PORT) || DEFAULT_SMTP_PORT;
-
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port,
-      secure: port === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-  }
+  transporter ??= nodemailer.createTransport({
+    host: SMTP.host,
+    port: SMTP.port,
+    secure: SMTP.port === SECURE_SMTP_PORT,
+    auth: { user: SMTP.user, pass: SMTP.password },
+  });
 
   return transporter;
 }
 
 async function sendMail({ to, subject, text, html }) {
-  return getTransporter().sendMail({
-    from: process.env.MAIL_FROM || process.env.SMTP_USER,
-    to,
-    subject,
-    text,
-    html,
-  });
+  return getTransporter().sendMail({ from: SMTP.sender, to, subject, text, html });
 }
 
-module.exports = {
-  sendMail,
-};
+module.exports = { sendMail };

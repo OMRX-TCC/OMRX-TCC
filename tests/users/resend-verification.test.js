@@ -3,11 +3,11 @@ const assert = require("node:assert/strict");
 
 const h = require("../helpers/harness");
 const f = require("../helpers/fixtures");
-const { db, mail, post, defaultUser, config, expectResponse, runCases } = h;
+const { db, mail, post, defaultUser, messages, expectResponse, runCases } = h;
 const { pendingUser, readyForResend, lastToken, silenceErrors, COOLDOWN, BAD_EMAIL } = f;
 
-const MSG = config.EMAIL_VERIFICATION_MESSAGES;
-const ACCEPTED = { message: MSG.RESEND_ACCEPTED };
+const MSG = messages.EMAIL_VERIFICATION_MESSAGES;
+const ACCEPTED = { message: MSG.resendAccepted };
 
 h.useServer();
 
@@ -32,11 +32,11 @@ describe("POST /users/resend-verification — reenvio do email de verificação"
       assert.equal(db.tokensOf(row.user_id).length, 1);
       expectResponse(await post("/users/verify-email", { token: oldToken }), {
         status: 400,
-        body: { error: MSG.INVALID_TOKEN, code: "INVALID_TOKEN" },
+        body: { error: MSG.invalidToken, code: "INVALID_TOKEN" },
       });
       expectResponse(await post("/users/verify-email", { token: newToken }), {
         status: 200,
-        body: { message: MSG.VERIFIED },
+        body: { message: MSG.verified },
       });
     });
 
@@ -90,7 +90,7 @@ describe("POST /users/resend-verification — reenvio do email de verificação"
 
       expectResponse(await post("/users/verify-email", { token }), {
         status: 200,
-        body: { message: MSG.VERIFIED },
+        body: { message: MSG.verified },
       });
     });
 
@@ -153,7 +153,7 @@ describe("POST /users/resend-verification — reenvio do email de verificação"
 
       const res = await post("/users/resend-verification", { email: payload.email });
 
-      expectResponse(res, { status: 502, body: { error: MSG.SEND_FAILED } });
+      expectResponse(res, { status: 502, body: { error: MSG.sendFailed } });
     });
   });
 

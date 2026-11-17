@@ -1,98 +1,58 @@
-const { URL_CHECK_PROVIDER } = require("../config/config");
+const { ERROR_CODES, URL_CHECK_PROVIDER } = require("../config");
+const { URL_CHECK_MESSAGES } = require("../messages");
+const { HTTP_STATUS, HttpError } = require("../utils/http");
 
-class UrlScanError extends Error {
-  constructor(message, { status, code, cause } = {}) {
-    super(message);
-    this.name = "UrlScanError";
-    this.status = status;
-    this.code = code;
-
-    if (cause) {
-      this.cause = cause;
-    }
-  }
-}
+const SCAN_NOT_READY_STATUS = 404;
 
 function buildApiUrl(path) {
-  return `${URL_CHECK_PROVIDER.BASE_URL}${path}`;
+  return `${URL_CHECK_PROVIDER.baseUrl}/accounts/${URL_CHECK_PROVIDER.accountId}/urlscanner/v2${path}`;
 }
 
-async function fetchWithTimeout(url, options) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), URL_CHECK_PROVIDER.TIMEOUT_MS);
-
+async function requestCloudflare(path, { method = "GET", headers = {}, body } = {}) {
   try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function requestCloudflare(url, options) {
-  try {
-    return await fetchWithTimeout(url, options);
-  } catch (err) {
-    throw new UrlScanError("Falha de comunicacao com a API", {
-      code: "NETWORK_ERROR",
-      cause: err,
+    return await fetch(buildApiUrl(path), {
+      method,
+      headers: { Authorization: `Bearer ${URL_CHECK_PROVIDER.apiToken}`, ...headers },
+      body,
+      signal: AbortSignal.timeout(URL_CHECK_PROVIDER.timeoutMs),
     });
+  } catch (error) {
+    throw new HttpError(URL_CHECK_MESSAGES.networkError, HTTP_STATUS.badGateway, { code: ERROR_CODES.networkError, cause: error });
   }
 }
 
-async function throwIfError(response) {
-  if (response.ok) {
-    return;
-  }
-
+async function readErrorDetail(response) {
   const body = await response.json().catch(() => ({}));
-
-  throw new UrlScanError(body?.errors?.[0]?.message || `Erro HTTP ${response.status}`, {
-    status: response.status,
-    code: "API_ERROR",
-  });
+  return body?.errors?.[0]?.message || `HTTP ${response.status}`;
 }
 
-function authHeaders(apiToken) {
-  return { Authorization: `Bearer ${apiToken}` };
+async function throwIfFailed(response) {
+  if (response.ok) return;
+
+  const cause = new Error(await readErrorDetail(response));
+  throw new HttpError(URL_CHECK_MESSAGES.apiError, HTTP_STATUS.badGateway, { code: ERROR_CODES.apiError, cause });
 }
 
-async function submitScan(targetUrl, accountId, apiToken) {
-  const apiUrl = buildApiUrl(`/accounts/${accountId}/urlscanner/v2/scan`);
-
-  const response = await requestCloudflare(apiUrl, {
+async function submitScan(url) {
+  const response = await requestCloudflare("/scan", {
     method: "POST",
-    headers: {
-      ...authHeaders(apiToken),
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ url: targetUrl, visibility: "Public" }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url, visibility: "Public" }),
   });
 
-  await throwIfError(response);
+  await throwIfFailed(response);
 
-  const body = await response.json();
-  return body.uuid;
+  const { uuid: scanId } = await response.json();
+  return scanId;
 }
 
-async function getScanResult(uuid, accountId, apiToken) {
-  const apiUrl = buildApiUrl(`/accounts/${accountId}/urlscanner/v2/result/${uuid}`);
+async function getScanResult(scanId) {
+  const response = await requestCloudflare(`/result/${encodeURIComponent(scanId)}`);
+  if (response.status === SCAN_NOT_READY_STATUS) return { isReady: false };
 
-  const response = await requestCloudflare(apiUrl, {
-    headers: authHeaders(apiToken),
-  });
+  await throwIfFailed(response);
 
-  if (response.status === 404) {
-    return { pending: true };
-  }
-
-  await throwIfError(response);
-
-  const body = await response.json();
-  return { pending: false, result: body };
+  return { isReady: true, cloudflareResult: await response.json() };
 }
 
-module.exports = {
-  submitScan,
-  getScanResult,
-  UrlScanError,
-};
+module.exports = { submitScan, getScanResult };

@@ -6,7 +6,7 @@ const h = require("./harness");
 
 const { db, mail, defaultUser, config } = h;
 
-const COOLDOWN = config.EMAIL_VERIFICATION.RESEND_COOLDOWN_SECONDS;
+const COOLDOWN = config.EMAIL_VERIFICATION.resendCooldownSeconds;
 
 const sha256 = (value) => crypto.createHash("sha256").update(value).digest("hex");
 const silenceErrors = (t) => t.mock.method(console, "error", () => {});

@@ -1,26 +1,28 @@
-const pool = require("../config/db");
+const database = require("./database");
 
 async function create({ userId, tokenHash, expiresInHours }) {
-  await pool.execute(
+  await database.execute(
     `INSERT INTO email_verification_tokens (user_id, token_hash, expires_at)
      VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ? HOUR))`,
     [userId, tokenHash, expiresInHours]
   );
 }
 
-async function findByHash(tokenHash) {
-  const [rows] = await pool.execute(
+async function findByTokenHash(tokenHash) {
+  const [rows] = await database.execute(
     `SELECT user_id, expires_at < NOW() AS expired
      FROM email_verification_tokens
      WHERE token_hash = ?`,
     [tokenHash]
   );
 
-  return rows[0];
+  if (rows.length === 0) return null;
+
+  return { userId: rows[0].user_id, isExpired: Boolean(rows[0].expired) };
 }
 
-async function getSecondsSinceLastToken(userId) {
-  const [rows] = await pool.execute(
+async function getSecondsSinceLastCreated(userId) {
+  const [rows] = await database.execute(
     `SELECT TIMESTAMPDIFF(SECOND, MAX(created_at), NOW()) AS seconds
      FROM email_verification_tokens
      WHERE user_id = ?`,
@@ -31,12 +33,7 @@ async function getSecondsSinceLastToken(userId) {
 }
 
 async function deleteByUserId(userId) {
-  await pool.execute("DELETE FROM email_verification_tokens WHERE user_id = ?", [userId]);
+  await database.execute("DELETE FROM email_verification_tokens WHERE user_id = ?", [userId]);
 }
 
-module.exports = {
-  create,
-  findByHash,
-  getSecondsSinceLastToken,
-  deleteByUserId,
-};
+module.exports = { create, findByTokenHash, getSecondsSinceLastCreated, deleteByUserId };

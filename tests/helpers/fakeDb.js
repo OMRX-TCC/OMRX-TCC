@@ -1,5 +1,5 @@
 // Banco em memoria que imita o subconjunto de SQL usado pelos models
-// (src/models/user.js, src/models/emailVerificationToken.js e src/models/verification.js).
+// (src/models/userModel.js, src/models/emailVerificationTokenModel.js e src/models/verificationModel.js).
 // A comparacao de email e case-insensitive, como a collation padrao do MySQL.
 
 function createFakeDb() {
@@ -26,12 +26,7 @@ function createFakeDb() {
       return [{ insertId: row.user_id }];
     }
 
-    if (q.startsWith("SELECT user_id FROM users WHERE user_email")) {
-      const user = state.users.find((u) => sameEmail(u.user_email, params[0]));
-      return [user ? [{ user_id: user.user_id }] : []];
-    }
-
-    if (/^SELECT \* FROM users where user_email/i.test(q)) {
+    if (/^SELECT .+ FROM users WHERE user_email = \?$/.test(q)) {
       const user = state.users.find((u) => sameEmail(u.user_email, params[0]));
       return [user ? [{ ...user }] : []];
     }
@@ -94,10 +89,10 @@ function createFakeDb() {
 
     if (q.startsWith("SELECT COUNT(*) AS total")) {
       const rows = state.verifications;
-      const lastUpdatedAt = rows.length
+      const lastCreatedAt = rows.length
         ? new Date(Math.max(...rows.map((r) => r.created_at.getTime())))
         : null;
-      return [[{ total: rows.length, lastUpdatedAt }]];
+      return [[{ total: rows.length, last_created_at: lastCreatedAt }]];
     }
 
     throw new Error(`Query nao suportada pelo fake DB: ${q}`);

@@ -62,7 +62,7 @@ describe("POST /users — cadastro de usuário", () => {
 
       assert.equal(mail.sent.length, 1);
       assert.equal(message.to, "teste@exemplo.com");
-      assert.ok(link.startsWith(`http://localhost:3000${EV.VERIFY_PAGE_PATH}?token=`), link);
+      assert.ok(link.startsWith(`http://localhost:3000${EV.pagePath}?token=`), link);
     });
 
     it("Deve salvar apenas o hash do token, com a validade definida na configuração", async () => {
@@ -79,8 +79,8 @@ describe("POST /users — cadastro de usuário", () => {
         {
           count: 1,
           storedValue: sha256(token),
-          tokenLength: EV.TOKEN_BYTES * 2,
-          validForHours: EV.EXPIRES_IN_HOURS,
+          tokenLength: EV.tokenBytes * 2,
+          validForHours: EV.expiresInHours,
         }
       );
     });

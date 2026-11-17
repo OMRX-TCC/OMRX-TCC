@@ -142,7 +142,7 @@ describe("POST /verify — verificação completa (polling)", () => {
 
     expectResponse(res, {
       status: 502,
-      body: { error: h.config.ERROR_MESSAGES.TIMEOUT, code: "TIMEOUT" },
+      body: { error: h.messages.URL_CHECK_MESSAGES.timeout, code: "TIMEOUT" },
     });
     assert.equal(db.verifications().length, 0);
   });
@@ -155,7 +155,7 @@ describe("POST /verify — verificação completa (polling)", () => {
 
     expectResponse(res, {
       status: 502,
-      body: { error: h.config.ERROR_MESSAGES.NETWORK_ERROR, code: "NETWORK_ERROR" },
+      body: { error: h.messages.URL_CHECK_MESSAGES.networkError, code: "NETWORK_ERROR" },
     });
     assert.equal(db.verifications().length, 0);
   });

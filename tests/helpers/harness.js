@@ -4,7 +4,7 @@
 // e substitui apenas as bordas externas:
 //   - MySQL      -> banco em memoria (tests/helpers/fakeDb.js)
 //   - SMTP       -> caixa de saida em memoria (`mail`)
-//   - API IPQS   -> global.fetch simulado (`provider`)
+//   - Cloudflare -> global.fetch simulado (`provider`)
 //
 // IMPORTANTE: este modulo precisa ser carregado ANTES de qualquer require do app.
 
@@ -15,8 +15,8 @@ const jwt = require("jsonwebtoken");
 
 const ROOT = path.join(__dirname, "..", "..");
 
-process.env.jwt_secret = "segredo-de-teste";
-process.env.jwt_expires_in = "1h";
+process.env.JWT_SECRET = "segredo-de-teste";
+process.env.JWT_EXPIRES_IN = "1h";
 process.env.APP_URL = "http://localhost:3000";
 process.env.CLOUDFLARE_ACCOUNT_ID = "conta-de-teste";
 process.env.CLOUDFLARE_API_TOKEN = "token-de-teste";
@@ -31,7 +31,7 @@ function inject(relativePath, exports) {
   require.cache[file] = { id: file, filename: file, loaded: true, exports };
 }
 
-inject("src/config/db.js", db.pool);
+inject("src/models/database.js", db.pool);
 inject("src/providers/mailProvider.js", {
   async sendMail(message) {
     if (mail.failWith) throw mail.failWith;
@@ -40,11 +40,12 @@ inject("src/providers/mailProvider.js", {
   },
 });
 
-// Evita esperas reais nos testes de retry/timeout.
-const config = require(path.join(ROOT, "src/config/config.js"));
-config.RETRY.INITIAL_DELAY_MS = 1;
-config.URL_CHECK_PROVIDER.TIMEOUT_MS = 30;
-config.URL_CHECK_PROVIDER.POLL_INTERVAL_MS = 1;
+const config = require(path.join(ROOT, "src/config.js"));
+const messages = require(path.join(ROOT, "src/messages.js"));
+
+// Evita esperas reais nos testes de timeout/polling.
+config.URL_CHECK_PROVIDER.timeoutMs = 30;
+config.URL_CHECK_PROVIDER.pollIntervalMs = 1;
 
 // O cliente HTTP dos testes usa o fetch real; o app passa a usar o simulado.
 const realFetch = global.fetch;
@@ -56,7 +57,7 @@ global.fetch = async (url, init) => {
   return provider.handler(String(url), init);
 };
 
-const app = require(path.join(ROOT, "src/server.js"));
+const app = require(path.join(ROOT, "src/app.js"));
 
 let server;
 let baseUrl;
@@ -209,6 +210,7 @@ module.exports = {
   mail,
   provider,
   config,
+  messages,
   reply,
   replyInvalidJson,
   hangUntilAborted,

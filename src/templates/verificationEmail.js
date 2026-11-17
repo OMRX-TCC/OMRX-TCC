@@ -1,42 +1,29 @@
-const fs = require("fs");
-const path = require("path");
+const path = require("node:path");
+const { loadHtmlTemplate, renderHtmlTemplate } = require("../utils/htmlTemplate");
 
-const HTML_TEMPLATE = fs.readFileSync(path.join(__dirname, "verificationEmail.html"), "utf8");
+const HTML_TEMPLATE = loadHtmlTemplate(path.join(__dirname, "verificationEmail.html"));
+const SUBJECT = "Confirme seu e-mail no OMRX";
 
-const HTML_ESCAPES = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;",
-};
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, (char) => HTML_ESCAPES[char]);
-}
-
-function renderTemplate(template, values) {
-  return template.replace(/{{(\w+)}}/g, (_, key) => escapeHtml(values[key]));
-}
-
-function buildVerificationEmail({ name, verifyUrl, expiresInHours }) {
-  const subject = "Confirme seu e-mail no OMRX";
-
-  const text = [
-    `Ola, ${name}!`,
+function buildPlainText({ name, verificationUrl, expiresInHours }) {
+  return [
+    `Olá, ${name}!`,
     "",
     "Para ativar sua conta no OMRX, confirme seu e-mail acessando o link abaixo:",
-    verifyUrl,
+    verificationUrl,
     "",
     `O link expira em ${expiresInHours} horas.`,
-    "Se voce nao criou uma conta no OMRX, ignore este e-mail.",
+    "Se você não criou uma conta no OMRX, ignore este e-mail.",
   ].join("\n");
-
-  const html = renderTemplate(HTML_TEMPLATE, { name, verifyUrl, expiresInHours });
-
-  return { subject, text, html };
 }
 
-module.exports = {
-  buildVerificationEmail,
-};
+function buildVerificationEmail({ name, verificationUrl, expiresInHours }) {
+  const templateValues = { name, verificationUrl, expiresInHours };
+
+  return {
+    subject: SUBJECT,
+    text: buildPlainText(templateValues),
+    html: renderHtmlTemplate(HTML_TEMPLATE, templateValues),
+  };
+}
+
+module.exports = { buildVerificationEmail };

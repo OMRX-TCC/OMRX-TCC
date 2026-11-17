@@ -41,17 +41,17 @@ describe("POST /urls/check — inicia verificação de URL", () => {
 
   it("Deve responder 502 quando as credenciais do Cloudflare não estão configuradas", async () => {
     const token = await loginToken();
-    const original = process.env.CLOUDFLARE_ACCOUNT_ID;
-    delete process.env.CLOUDFLARE_ACCOUNT_ID;
+    const original = h.config.URL_CHECK_PROVIDER.accountId;
+    h.config.URL_CHECK_PROVIDER.accountId = undefined;
 
     try {
       const res = await post("/urls/check", { url: "https://exemplo.com" }, bearer(token));
       expectResponse(res, {
         status: 502,
-        body: { error: h.config.ERROR_MESSAGES.MISSING_ACCOUNT_ID, code: "MISSING_ACCOUNT_ID" },
+        body: { error: h.messages.URL_CHECK_MESSAGES.serviceUnavailable, code: "MISSING_ACCOUNT_ID" },
       });
     } finally {
-      process.env.CLOUDFLARE_ACCOUNT_ID = original;
+      h.config.URL_CHECK_PROVIDER.accountId = original;
     }
   });
 
@@ -71,8 +71,8 @@ describe("POST /urls/check — inicia verificação de URL", () => {
     const res = await post("/urls/check", { url: "https://exemplo.com" }, bearer(token));
 
     expectResponse(res, {
-      status: 500,
-      body: { error: h.config.ERROR_MESSAGES.API_ERROR, code: "API_ERROR" },
+      status: 502,
+      body: { error: h.messages.URL_CHECK_MESSAGES.apiError, code: "API_ERROR" },
     });
   });
 
@@ -84,7 +84,7 @@ describe("POST /urls/check — inicia verificação de URL", () => {
 
     expectResponse(res, {
       status: 502,
-      body: { error: h.config.ERROR_MESSAGES.NETWORK_ERROR, code: "NETWORK_ERROR" },
+      body: { error: h.messages.URL_CHECK_MESSAGES.networkError, code: "NETWORK_ERROR" },
     });
   });
 });

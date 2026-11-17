@@ -3,10 +3,10 @@ const assert = require("node:assert/strict");
 
 const h = require("../helpers/harness");
 const f = require("../helpers/fixtures");
-const { post, defaultUser, config, expectResponse, runCases } = h;
+const { post, defaultUser, messages, expectResponse, runCases } = h;
 const { credentials, verifiedAccount, silenceErrors } = f;
 
-const MSG = config.EMAIL_VERIFICATION_MESSAGES;
+const MSG = messages.AUTH_MESSAGES;
 const INVALID = { error: "Email ou senha inválidos" };
 const MISSING = { error: "Os campos email e senha são obrigatórios." };
 
@@ -18,7 +18,7 @@ describe("POST /users/login — autenticação", () => {
 
     it("Deve responder 200 com um JWT assinado contendo o id e o email do usuário", async () => {
       const res = await post("/users/login", credentials);
-      const { id, email, exp, iat } = h.jwt.verify(res.body.token, process.env.jwt_secret);
+      const { id, email, exp, iat } = h.jwt.verify(res.body.token, process.env.JWT_SECRET);
 
       expectResponse(res, { status: 200, body: { token: res.body.token } });
       assert.deepEqual(
@@ -54,7 +54,7 @@ describe("POST /users/login — autenticação", () => {
     it("Deve responder 403 EMAIL_NOT_VERIFIED, sem token, quando a senha está correta", async () => {
       expectResponse(await post("/users/login", credentials), {
         status: 403,
-        body: { error: MSG.NOT_VERIFIED, code: "EMAIL_NOT_VERIFIED" },
+        body: { error: MSG.emailNotVerified, code: "EMAIL_NOT_VERIFIED" },
       });
     });
 
