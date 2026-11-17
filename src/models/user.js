@@ -27,6 +27,13 @@ async function findOneByEmail(email) {
     return rows[0];
 }
 
+async function remove(id) {
+    await pool.execute(
+        "DELETE FROM users WHERE user_id = ?",
+        [id]
+    );
+}
+
 async function markEmailAsVerified(userId) {
     await pool.execute(
         "UPDATE users SET user_email_verified_at = NOW() WHERE user_id = ?",
@@ -34,4 +41,4 @@ async function markEmailAsVerified(userId) {
     );
 }
 
-module.exports = {create, findByEmail, findOneByEmail, markEmailAsVerified}
+module.exports = { create, findByEmail, findOneByEmail, remove, markEmailAsVerified };

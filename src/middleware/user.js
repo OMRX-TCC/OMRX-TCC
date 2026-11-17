@@ -72,4 +72,20 @@ function validateResendVerification(req, resp, next) {
     next();
 }
 
-module.exports = { validateRegister, validateLogin, validateResendVerification };
+function validateDeleteAccount(req, resp, next) {
+    const { email, confirmDeletion } = req.body;
+
+    if (!email || !confirmDeletion) {
+        return resp.status(400).json({
+            error: "Confirme a exclusão informando seu email e marcando a caixa de confirmação.",
+        });
+    }
+
+    if (email.trim().toLowerCase() !== req.auth.email.toLowerCase()) {
+        return resp.status(403).json({ error: "O email informado não confere com a conta autenticada." });
+    }
+
+    next();
+}
+
+module.exports = { validateRegister, validateLogin, validateResendVerification, validateDeleteAccount };
