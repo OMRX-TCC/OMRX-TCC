@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Conheça o time por trás do OMRX: um time pequeno, obcecado por segurança e experiência simples."
+    />
+    <title>Desenvolvedores | OMRX</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/footer.css" />
+    <link rel="stylesheet" href="../styles/components/developer-card.css" />
+    <link rel="stylesheet" href="../styles/developers.css" />
+    <script type="module" src="../scripts/components/omrx-header.js"></script>
+    <script type="module" src="../scripts/components/omrx-footer.js"></script>
+    <script type="module" src="../scripts/components/omrx-developer-card.js"></script>
+  </head>
+  <body>
+    <omrx-header></omrx-header>
+
+    <main>
+      <section class="dev-hero" aria-labelledby="desenvolvedores-titulo">
+        <h1 class="dev-hero__title" id="desenvolvedores-titulo">Quem constrói o OMRX</h1>
+        <p class="dev-hero__text">
+          Um time pequeno, obcecado por segurança e experiência simples para quem só quer saber se
+          pode clicar.
+        </p>
+      </section>
+
+      <section class="dev-team" aria-label="Equipe">
+        <ul class="developer-cards">
+          <li>
+            <omrx-developer-card
+              name="Gabriel Ortega"
+              role="Backend & Infraestrutura"
+            ></omrx-developer-card>
+          </li>
+          <li>
+            <omrx-developer-card
+              name="Maykon Vieira"
+              role="Backend & Infraestrutura"
+            ></omrx-developer-card>
+          </li>
+          <li>
+            <omrx-developer-card
+              name="Rivaldo Leal"
+              role="Frontend & Design de Produto"
+            ></omrx-developer-card>
+          </li>
+        </ul>
+      </section>
+
+      <section class="principles" aria-labelledby="principios-titulo">
+        <div class="principles__inner">
+          <h2 class="principles__title" id="principios-titulo">Nossos princípios</h2>
+
+          <ul class="principles__list">
+            <li class="principle-card">
+              <h3 class="principle-card__title">Privacidade por padrão</h3>
+              <p class="principle-card__text">
+                Nunca guardamos o conteúdo das páginas que você verifica.
+              </p>
+            </li>
+            <li class="principle-card">
+              <h3 class="principle-card__title">Transparência</h3>
+              <p class="principle-card__text">
+                Explicamos sempre o motivo por trás de cada veredito.
+              </p>
+            </li>
+            <li class="principle-card">
+              <h3 class="principle-card__title">Rapidez</h3>
+              <p class="principle-card__text">
+                Resultados em segundos, sem fricção para o usuário.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <omrx-footer></omrx-footer>
+  </body>
+</html>

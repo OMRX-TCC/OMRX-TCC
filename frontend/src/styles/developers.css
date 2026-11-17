@@ -1,0 +1,161 @@
+.dev-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 72px var(--page-gutter) 56px;
+  text-align: center;
+}
+
+.dev-hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 60px;
+  color: var(--color-white);
+}
+
+.dev-hero__text {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--color-white-78);
+}
+
+/* --------------------------------------------------------------------------
+   Equipe
+   -------------------------------------------------------------------------- */
+.dev-team {
+  padding: 32px var(--page-gutter);
+}
+
+/* Faz o card preencher a altura da celula da grade */
+.developer-cards > li > omrx-developer-card {
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Principios: faixa clara no desktop
+   -------------------------------------------------------------------------- */
+.principles {
+  padding: 56px var(--page-gutter) 72px;
+  background-color: var(--color-white);
+}
+
+.principles__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.principles__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--color-navy);
+}
+
+.principles__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+}
+
+.principle-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-sky);
+  border-radius: 16px;
+}
+
+/* A barra laranja so aparece no mobile */
+.principle-card::before {
+  display: none;
+  content: "";
+  width: 40px;
+  height: 3px;
+  margin-bottom: 4px;
+  background-color: var(--color-orange);
+}
+
+.principle-card__title {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--color-navy);
+}
+
+.principle-card__text {
+  font-size: 14px;
+  line-height: 21px;
+  color: rgb(39 47 106 / 78%);
+}
+
+/* ==========================================================================
+   Mobile/tablet
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dev-hero {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 40px var(--page-gutter) 8px;
+    text-align: left;
+  }
+
+  .dev-hero__title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .dev-hero__text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .dev-team {
+    padding: 24px var(--page-gutter) 32px;
+  }
+
+  /* No mobile os principios ficam sobre o fundo navy, com cards escuros */
+  .principles {
+    padding: 8px var(--page-gutter) 56px;
+    background-color: transparent;
+  }
+
+  .principles__inner {
+    gap: 16px;
+  }
+
+  .principles__title {
+    font-size: 22px;
+    line-height: 28px;
+    color: var(--color-white);
+  }
+
+  .principles__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .principle-card {
+    background-color: var(--color-navy-dark);
+    border-color: var(--color-indigo);
+  }
+
+  .principle-card::before {
+    display: block;
+  }
+
+  .principle-card__title {
+    color: var(--color-white);
+  }
+
+  .principle-card__text {
+    color: var(--color-white-75);
+  }
+}
