@@ -1,0 +1,174 @@
+.faq-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 72px var(--page-gutter) 56px;
+  text-align: center;
+}
+
+.faq-hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--color-white);
+}
+
+.faq-hero__text {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--color-white-78);
+}
+
+/* --------------------------------------------------------------------------
+   Lista de perguntas: faixa clara no desktop
+   -------------------------------------------------------------------------- */
+.faq {
+  padding: 56px var(--page-gutter) 72px;
+  background-color: var(--color-white);
+}
+
+.faq__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+.faq-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-group__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-navy);
+}
+
+.faq-group__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Pergunta (details/summary: abre e fecha sem JavaScript)
+   -------------------------------------------------------------------------- */
+.faq-item {
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-sky);
+  border-radius: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.faq-item[open] {
+  border-color: var(--color-orange);
+}
+
+.faq-item__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-navy);
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Remove o triangulo padrao do navegador */
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+/* Icone + / - */
+.faq-item__question::after {
+  content: "+";
+  content: "+" / "";
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-navy);
+}
+
+.faq-item[open] > .faq-item__question::after {
+  content: "\2212";
+  content: "\2212" / "";
+  color: var(--color-orange);
+}
+
+.faq-item__answer {
+  padding: 0 20px 18px;
+  font-size: 15px;
+  line-height: 24px;
+  color: rgb(39 47 106 / 78%);
+}
+
+/* ==========================================================================
+   Mobile/tablet
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .faq-hero {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 40px var(--page-gutter) 8px;
+    text-align: left;
+  }
+
+  .faq-hero__title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .faq-hero__text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  /* No mobile a lista fica sobre o fundo navy, com titulos de grupo brancos */
+  .faq {
+    padding: 24px var(--page-gutter) 56px;
+    background-color: transparent;
+  }
+
+  .faq__inner {
+    gap: 28px;
+    max-width: none;
+  }
+
+  .faq-group {
+    gap: 12px;
+  }
+
+  .faq-group__title {
+    font-size: 18px;
+    color: var(--color-white);
+  }
+
+  .faq-group__list {
+    gap: 10px;
+  }
+
+  .faq-item__question {
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .faq-item__answer {
+    padding: 0 16px 16px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
