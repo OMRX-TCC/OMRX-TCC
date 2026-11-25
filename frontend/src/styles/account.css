@@ -159,50 +159,70 @@
 }
 
 /* --------------------------------------------------------------------------
-   Excluir conta
+   Cartoes de acao (sair da conta, excluir conta)
    -------------------------------------------------------------------------- */
-.account-danger {
+.account-action {
   display: flex;
   align-items: center;
   gap: 24px;
   padding: 22px 28px;
 }
 
-.account-danger__info {
+.account-action__info {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 6px;
 }
 
-.account-danger__title {
+.account-action__title {
   font-weight: 600;
   font-size: 16px;
-  color: var(--color-danger);
+  color: var(--color-white);
 }
 
-.account-danger__text {
+.account-action__text {
   font-size: 14px;
   color: var(--color-white-70);
 }
 
-.account-danger__button {
+.account-action__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 170px;
   height: 44px;
   padding: 0 22px;
-  border: 1.5px solid var(--color-danger);
+  background: none;
+  border: 1.5px solid var(--color-sky);
   border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 14px;
-  color: var(--color-danger);
+  color: var(--color-sky);
   white-space: nowrap;
+  cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
-.account-danger__button:hover {
+.account-action__button:hover {
+  background-color: var(--color-sky-12);
+}
+
+.account-action__button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.account-action--danger .account-action__title {
+  color: var(--color-danger);
+}
+
+.account-action--danger .account-action__button {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.account-action--danger .account-action__button:hover {
   background-color: var(--color-danger-12);
 }
 
@@ -255,18 +275,18 @@
     padding: 14px 16px;
   }
 
-  .account-danger {
+  .account-action {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
     padding: 16px;
   }
 
-  .account-danger__text {
+  .account-action__text {
     line-height: 20px;
   }
 
-  .account-danger__button {
+  .account-action__button {
     height: 46px;
   }
 }

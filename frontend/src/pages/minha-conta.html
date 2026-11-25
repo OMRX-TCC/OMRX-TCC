@@ -75,15 +75,27 @@
           </dl>
         </div>
 
+        <section class="account__section" aria-labelledby="sessao-titulo">
+          <h2 class="account__section-title" id="sessao-titulo">Sessão</h2>
+
+          <div class="account-card account-action">
+            <div class="account-action__info">
+              <h3 class="account-action__title">Sair da conta</h3>
+              <p class="account-action__text">Encerra sua sessão neste navegador.</p>
+            </div>
+            <button class="account-action__button" type="button" id="logout-button">Sair</button>
+          </div>
+        </section>
+
         <section class="account__section" aria-labelledby="privacidade-titulo">
           <h2 class="account__section-title" id="privacidade-titulo">Dados e privacidade</h2>
 
-          <div class="account-card account-danger">
-            <div class="account-danger__info">
-              <h3 class="account-danger__title">Excluir conta</h3>
-              <p class="account-danger__text">Apaga sua conta. Essa ação não pode ser desfeita.</p>
+          <div class="account-card account-action account-action--danger">
+            <div class="account-action__info">
+              <h3 class="account-action__title">Excluir conta</h3>
+              <p class="account-action__text">Apaga sua conta. Essa ação não pode ser desfeita.</p>
             </div>
-            <a class="account-danger__button" href="/pages/excluir-conta.html">Excluir conta</a>
+            <a class="account-action__button" href="/pages/excluir-conta.html">Excluir conta</a>
           </div>
         </section>
       </div>

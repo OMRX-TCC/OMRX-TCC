@@ -11,9 +11,16 @@ const accountStatus = document.getElementById("account-status");
 const nameValue = document.getElementById("account-name");
 const emailValue = document.getElementById("account-email");
 const createdAtValue = document.getElementById("account-created-at");
+const logoutButton = document.getElementById("logout-button");
 
 function redirectToLogin() {
   window.location.replace(PAGES.login);
+}
+
+function logout() {
+  logoutButton.disabled = true;
+  clearSession();
+  window.location.replace(PAGES.home);
 }
 
 function isUnauthorized(error) {
@@ -31,6 +38,8 @@ async function initAccountPage() {
     redirectToLogin();
     return;
   }
+
+  logoutButton.addEventListener("click", logout);
 
   try {
     showAccount(await getAccount());
