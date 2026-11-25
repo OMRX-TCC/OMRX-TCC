@@ -37,6 +37,10 @@ module.exports = {
     RESEND_COOLDOWN_SECONDS: 60,
     VERIFY_PAGE_PATH: "/pages/verificar-email.html",
   },
+  AUTH_MESSAGES: {
+    MISSING_TOKEN: "Token não fornecido",
+    INVALID_TOKEN: "Token inválido ou expirado",
+  },
   EMAIL_VERIFICATION_MESSAGES: {
     INVALID_TOKEN: "Link de verificação inválido ou já utilizado.",
     EXPIRED_TOKEN: "Este link de verificação expirou. Solicite um novo.",
