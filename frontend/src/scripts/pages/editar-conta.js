@@ -1,7 +1,7 @@
 import { ApiError, getErrorMessage } from "../api/httpClient.js";
 import { UNAUTHORIZED_STATUS } from "../config.js";
 import { ACCOUNT_MESSAGES, EDIT_ACCOUNT_MESSAGES } from "../messages.js";
-import { PAGES } from "../routes.js";
+import { buildEmailSentUrl, PAGES } from "../routes.js";
 import { clearSession, getAccount, isLoggedIn, updateAccount } from "../services/userService.js";
 import { showErrorStatus } from "../ui/formStatus.js";
 import { initValidatedForm } from "../ui/validatedForm.js";
@@ -45,11 +45,6 @@ function getAccountChanges({ name, email, currentPassword, newPassword, confirmN
   return changes;
 }
 
-function getSavedMessage(changes, { emailSent }) {
-  if (!changes.email) return EDIT_ACCOUNT_MESSAGES.saved;
-  return emailSent ? EDIT_ACCOUNT_MESSAGES.savedEmailSent : EDIT_ACCOUNT_MESSAGES.savedEmailNotSent;
-}
-
 async function saveChanges(formValues) {
   if (!isLoggedIn()) {
     redirectToLogin();
@@ -62,15 +57,21 @@ async function saveChanges(formValues) {
     return { successMessage: EDIT_ACCOUNT_MESSAGES.noChanges };
   }
 
-  const result = await updateAccount(changes);
+  await updateAccount(changes);
+
+  if (changes.email) {
+    clearSession();
+    window.location.replace(buildEmailSentUrl(changes.email));
+    return;
+  }
 
   savedAccount = {
     name: changes.name ?? savedAccount.name,
-    email: changes.email ?? savedAccount.email,
+    email: savedAccount.email,
   };
   fillForm(savedAccount);
 
-  return { successMessage: getSavedMessage(changes, result) };
+  return { successMessage: EDIT_ACCOUNT_MESSAGES.saved };
 }
 
 async function initEditAccountPage() {

@@ -141,6 +141,60 @@ describe("PUT /change — atualizacao de dados do usuario", () => {
     assert.equal(lastMail.to, "trocado@exemplo.com");
   });
 
+  it("Deve invalidar o token atual quando o email muda", async () => {
+    const token = await loginToken();
+    await put({ email: "trocado@exemplo.com" }, bearer(token));
+
+    expectResponse(await request("GET", "/account", { headers: bearer(token) }), {
+      status: 401,
+      body: { error: "Token inválido ou expirado" },
+    });
+  });
+
+  it("Deve continuar invalidando o token antigo mesmo depois de confirmar o novo email", async () => {
+    const token = await loginToken();
+    await put({ email: "trocado@exemplo.com" }, bearer(token));
+    await h.post("/users/verify-email", { token: h.extractToken(h.mail.sent.at(-1)) });
+
+    const oldSession = await request("GET", "/account", { headers: bearer(token) });
+    assert.equal(oldSession.status, 401);
+
+    const login = await h.post("/users/login", {
+      email: "trocado@exemplo.com",
+      password: defaultUser.password,
+    });
+    const newSession = await request("GET", "/account", { headers: bearer(login.body.token) });
+
+    assert.equal(newSession.status, 200);
+    assert.equal(newSession.body.email, "trocado@exemplo.com");
+  });
+
+  it("Deve invalidar o token antigo quando o email volta ao original sem ser confirmado", async () => {
+    const token = await loginToken();
+    const newToken = (
+      await h.post("/users/login", { email: defaultUser.email, password: defaultUser.password })
+    ).body.token;
+
+    await put({ email: "trocado@exemplo.com" }, bearer(newToken));
+    db.verifyUser("trocado@exemplo.com");
+    const login = await h.post("/users/login", {
+      email: "trocado@exemplo.com",
+      password: defaultUser.password,
+    });
+    await put({ email: defaultUser.email }, bearer(login.body.token));
+
+    const res = await request("GET", "/account", { headers: bearer(token) });
+    assert.equal(res.status, 401);
+  });
+
+  it("Nao deve invalidar o token quando so o nome muda", async () => {
+    const token = await loginToken();
+    await put({ name: "Outro Nome" }, bearer(token));
+
+    const res = await request("GET", "/account", { headers: bearer(token) });
+    assert.equal(res.status, 200);
+  });
+
   it("Deve trocar a senha com sucesso quando os 3 campos sao validos", async () => {
     const token = await loginToken();
 
