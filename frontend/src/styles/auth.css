@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Telas de autenticacao (cadastro, login)
+   Telas de autenticacao (cadastro, login, recuperacao de senha)
    ========================================================================== */
 .auth-page {
   display: flex;
@@ -40,6 +40,21 @@
   font-size: 15px;
   line-height: 22px;
   color: var(--color-white-75);
+}
+
+.auth-card__line {
+  display: block;
+  text-wrap: balance;
+}
+
+.auth-card__line--spaced {
+  margin-top: 1lh;
+}
+
+.auth-card__email {
+  font-weight: 600;
+  color: var(--color-white);
+  overflow-wrap: anywhere;
 }
 
 .auth-card__icon {
@@ -172,9 +187,29 @@
     font-size: 16px;
   }
 
-  .auth-card--verify-email .auth-card__text {
+  .auth-card--verify-email .auth-card__text,
+  .auth-card--recovery .auth-card__text {
     font-size: 17px;
     line-height: 25px;
+  }
+
+  .auth-card--recovery .auth-form__fields {
+    gap: 16px;
+    padding-top: 7px;
+  }
+
+  .auth-card--recovery .form-field {
+    gap: 9px;
+  }
+
+  .auth-card--recovery .form-field__label {
+    font-size: 16px;
+  }
+
+  .auth-card--recovery .form-field__input {
+    padding: 16px 18.5px;
+    border-radius: 12px;
+    font-size: 17px;
   }
 
   .auth-card__title {

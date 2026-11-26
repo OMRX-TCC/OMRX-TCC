@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir senha | OMRX</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/pages/redefinir-senha.js"></script>
+  </head>
+  <body>
+    <main class="auth-page auth-page--notice" aria-live="polite">
+      <section
+        class="auth-card auth-card--notice auth-card--recovery"
+        id="reset-card"
+        aria-labelledby="redefinir-senha-titulo"
+      >
+        <div class="auth-card__head">
+          <h1 id="redefinir-senha-titulo" class="auth-card__title">Crie uma nova senha</h1>
+
+          <p class="auth-card__text">Escolha uma senha nova.</p>
+        </div>
+
+        <form id="reset-password-form" class="auth-form" novalidate>
+          <div class="auth-form__fields">
+            <div class="form-field">
+              <label class="form-field__label" for="newPassword">Nova senha</label>
+              <input
+                class="form-field__input"
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                placeholder="Digite a nova senha"
+                autocomplete="new-password"
+                minlength="8"
+                aria-describedby="newPassword-error"
+                required
+              />
+              <p class="form-field__error" id="newPassword-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="confirmNewPassword">Confirmar nova senha</label>
+              <input
+                class="form-field__input"
+                id="confirmNewPassword"
+                name="confirmNewPassword"
+                type="password"
+                placeholder="Repita a nova senha"
+                autocomplete="new-password"
+                aria-describedby="confirmNewPassword-error"
+                required
+              />
+              <p class="form-field__error" id="confirmNewPassword-error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <p class="form-status" id="form-status" role="status"></p>
+
+          <button class="button-primary" type="submit">Salvar nova senha</button>
+        </form>
+      </section>
+
+      <section
+        class="auth-card auth-card--notice auth-card--recovery"
+        id="failed-card"
+        aria-labelledby="failed-titulo"
+        hidden
+      >
+        <div class="auth-card__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M21 7L7 21M7 7L21 21" />
+          </svg>
+        </div>
+
+        <div class="auth-card__head">
+          <h1 id="failed-titulo" class="auth-card__title">Não foi possível redefinir</h1>
+
+          <p class="auth-card__text" id="failed-message"></p>
+        </div>
+
+        <a class="button-primary" href="./esqueci-senha.html">Solicitar novo link</a>
+      </section>
+    </main>
+  </body>
+</html>

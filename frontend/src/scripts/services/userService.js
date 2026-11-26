@@ -19,6 +19,14 @@ export function resendVerificationEmail(email) {
   return postJson("/users/resend-verification", { email: email.trim() });
 }
 
+export function requestPasswordReset(email) {
+  return postJson("/forgot-password", { email: email.trim() });
+}
+
+export function resetPassword({ token, newPassword, confirmNewPassword }) {
+  return postJson("/reset-password", { token, newPassword, confirmNewPassword });
+}
+
 export async function login({ email, password }) {
   const { token } = await postJson("/users/login", { email: email.trim(), password });
   localStorage.setItem(TOKEN_STORAGE_KEY, token);

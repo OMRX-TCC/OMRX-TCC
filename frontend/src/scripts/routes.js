@@ -34,6 +34,11 @@ export function buildEmailSentUrl(email) {
   return `${PAGES.emailSent}?${queryString}`;
 }
 
+export function buildPasswordResetSentUrl(email) {
+  const queryString = new URLSearchParams({ [EMAIL_QUERY_PARAM]: email });
+  return `${PAGES.passwordResetSent}?${queryString}`;
+}
+
 export function buildCheckLinkUrl(link) {
   const queryString = new URLSearchParams({ [LINK_QUERY_PARAM]: link });
   return `${PAGES.checkLink}?${queryString}`;

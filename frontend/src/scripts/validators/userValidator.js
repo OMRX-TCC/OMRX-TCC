@@ -82,6 +82,23 @@ function getNewPasswordConfirmationError({ newPassword, confirmNewPassword }) {
   return null;
 }
 
+function getRequiredNewPasswordError({ newPassword }) {
+  if (!newPassword) return "Informe a nova senha.";
+  if (newPassword.length < MIN_PASSWORD_LENGTH) {
+    return `A nova senha deve ter ao menos ${MIN_PASSWORD_LENGTH} caracteres.`;
+  }
+  return null;
+}
+
+export const forgotPasswordValidator = createValidator({
+  email: getEmailError,
+});
+
+export const resetPasswordValidator = createValidator({
+  newPassword: getRequiredNewPasswordError,
+  confirmNewPassword: getNewPasswordConfirmationError,
+});
+
 export function createEditAccountValidator(getSavedEmail) {
   function getRequiredCurrentPasswordError(formValues) {
     if (formValues.currentPassword) return null;
