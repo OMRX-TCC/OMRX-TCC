@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verifique seu e-mail | OMRX</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-omrx.png" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <script type="module" src="../scripts/pages/recuperacao-enviada.js"></script>
+  </head>
+  <body>
+    <main class="auth-page auth-page--notice">
+      <section
+        class="auth-card auth-card--notice auth-card--recovery"
+        aria-labelledby="recuperacao-enviada-titulo"
+      >
+        <div class="auth-card__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect x="2.333" y="4.667" width="23.333" height="18.667" rx="2.333" />
+            <path d="M2.333 7L14 14L25.667 7" />
+          </svg>
+        </div>
+
+        <div class="auth-card__head">
+          <h1 id="recuperacao-enviada-titulo" class="auth-card__title">Verifique seu e-mail</h1>
+
+          <p class="auth-card__text">
+            <span class="auth-card__line">Se houver uma conta cadastrada com</span>
+            <span class="auth-card__line">
+              <strong class="auth-card__email" id="recipient-email">seu e-mail</strong>, enviamos um
+              link de recuperação.
+            </span>
+            <span class="auth-card__line auth-card__line--spaced">
+              Se não encontrar, confira sua caixa de spam.
+            </span>
+          </p>
+        </div>
+
+        <a class="button-primary" href="./login.html">Voltar para o login</a>
+
+        <p class="form-status" id="resend-status" role="status"></p>
+
+        <p class="auth-switch" id="resend-prompt">
+          <span>Não recebeu o e-mail?</span>
+          <button class="auth-switch__link link-button" id="resend-button" type="button">
+            Reenviar
+          </button>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

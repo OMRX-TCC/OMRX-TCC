@@ -45,6 +45,17 @@ export const DELETE_ACCOUNT_MESSAGES = {
   unexpectedError: "Não foi possível excluir sua conta. Tente novamente.",
 };
 
+export const FORGOT_PASSWORD_MESSAGES = {
+  submitting: "Enviando...",
+  unexpectedError: "Não foi possível enviar o link de recuperação. Tente novamente.",
+};
+
+export const RESET_PASSWORD_MESSAGES = {
+  submitting: "Salvando...",
+  invalidLink: "Link de redefinição de senha inválido ou já utilizado.",
+  unexpectedError: "Não foi possível redefinir sua senha. Tente novamente.",
+};
+
 export const VERIFY_EMAIL_MESSAGES = {
   invalidLink: "Link de verificação inválido ou já utilizado.",
   unexpectedError: "Não foi possível confirmar seu e-mail. Tente novamente.",
