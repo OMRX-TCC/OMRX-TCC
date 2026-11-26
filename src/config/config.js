@@ -50,4 +50,17 @@ module.exports = {
     EXPIRED_RESEND_FAILED:
       "Seu link de confirmação de email expirou e não conseguimos enviar um novo agora. Tente novamente mais tarde.",
   },
+  PASSWORD_RESET: {
+    TOKEN_BYTES: 32,
+    EXPIRES_IN_HOURS: 1,
+    RESET_PAGE_PATH: "/pages/redefinir-senha.html",
+  },
+  PASSWORD_RESET_MESSAGES: {
+    REQUEST_ACCEPTED:
+      "Se houver uma conta cadastrada com esse e-mail, enviaremos um link para redefinir a senha.",
+    SEND_FAILED: "Não foi possível enviar o e-mail de redefinição de senha. Tente novamente mais tarde.",
+    INVALID_TOKEN: "Link de redefinição de senha inválido ou já utilizado.",
+    EXPIRED_TOKEN: "Este link de redefinição de senha expirou. Solicite um novo.",
+    RESET_SUCCESS: "Senha redefinida com sucesso! Você já pode entrar com a nova senha.",
+  },
 };
